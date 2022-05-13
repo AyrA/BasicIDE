@@ -659,7 +659,14 @@ namespace BasicIDE
             {
                 return;
             }
-            ProjectFile.DeleteFunction(N.Text);
+            try
+            {
+                ProjectFile.DeleteFunction(N.Text);
+            }
+            catch (Exception ex)
+            {
+                MBox.E(ex.Message, "Cannot delete function");
+            }
             PopulateTree(ProjectFile);
         }
 

@@ -188,6 +188,10 @@ namespace BasicIDE
             {
                 throw new ArgumentException("Invalid function name format");
             }
+            if (FunctionName.ToLower() == MainFunction.ToLower())
+            {
+                throw new ArgumentException("You cannot delete the main function");
+            }
             try
             {
                 File.Delete(GetName(FunctionName));
