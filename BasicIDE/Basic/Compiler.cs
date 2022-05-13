@@ -276,6 +276,8 @@ namespace BasicIDE.Basic
             if (Type.Length == 0 && Statement.Length > 0)
             {
                 Type = Statement[Statement.Length - 1].ToString();
+                //Handle constant strings
+                if (Type == "\"") { Type = "$"; }
                 if (Types.Contains(Type))
                 {
                     Res.AddMessage(new SyntaxError(LineNumber, SyntaxErrorType.Info, $"Return type not specified. Guessing from argument instead. Using: {Type}", FunctionName));
