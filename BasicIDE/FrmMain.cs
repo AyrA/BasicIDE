@@ -58,6 +58,7 @@ namespace BasicIDE
             {
                 SetChange(false);
             }
+            PopulateTree(ProjectFile);
             return ok;
         }
 
@@ -69,7 +70,7 @@ namespace BasicIDE
                 return false;
             }
             var Labels = Basic.Compiler.GetLabels(Code);
-            var Functions = ProjectFile.GetFunctions().Select(m => m.ToUpper()).ToArray();
+            var Functions = ProjectFile.GetFunctions().Select(m => m.FunctionName.ToUpper()).ToArray();
             var Existing = Labels.FirstOrDefault(m => Functions.Contains(m));
             if (Existing != null)
             {
@@ -88,6 +89,7 @@ namespace BasicIDE
             }
 
             ProjectFile.SaveFunction(Name, string.Join(Environment.NewLine, Code));
+            PopulateTree(ProjectFile);
             return true;
         }
 
@@ -96,7 +98,7 @@ namespace BasicIDE
             TreeDocuments.Nodes.Clear();
             if (P != null)
             {
-                var Root = new TreeNode(P.Title, P.GetFunctions().Select(m => new TreeNode(m)).ToArray());
+                var Root = new TreeNode(P.Title, P.GetFunctions().Select(m => new TreeNode(m.ToString())).ToArray());
                 Root.Expand();
                 TreeDocuments.Nodes.Add(Root);
             }
@@ -177,7 +179,7 @@ namespace BasicIDE
             PopulateTree(ProjectFile);
             var IsDebug = buildTypeToolStripMenuItem.SelectedItem.ToString() == "Debug";
             var C = new Basic.Compiler(IsDebug ? Basic.CompilerConfig.Debug : Basic.CompilerConfig.Release);
-            return C.Compile(ProjectFile.GetAllCode(), ProjectFile.GetFunctions().ToArray());
+            return C.Compile(ProjectFile.GetAllCode(), ProjectFile.GetFunctions().Select(m => m.FunctionName).ToArray());
         }
 
         private void NoProjectMessage()
@@ -415,7 +417,9 @@ namespace BasicIDE
             }
             else
             {
-                ShowCode(N.Text, ProjectFile.GetFunctionCode(N.Text));
+                //Get function name without arguments
+                var FuncName = N.Text.Substring(0, N.Text.IndexOf('('));
+                ShowCode(FuncName, ProjectFile.GetFunctionCode(FuncName));
             }
         }
 

@@ -111,11 +111,12 @@ namespace BasicIDE
             }
         }
 
-        public IEnumerable<string> GetFunctions()
+        public IEnumerable<Basic.FunctionDeclaration> GetFunctions()
         {
             foreach (var S in Directory.EnumerateFiles(ProjectDirectory, "*.bas"))
             {
-                yield return Path.GetFileNameWithoutExtension(S);
+                var Lines = File.ReadAllLines(S);
+                yield return new Basic.FunctionDeclaration(Path.GetFileNameWithoutExtension(S), Lines);
             }
         }
 
@@ -219,13 +220,13 @@ namespace BasicIDE
             foreach (var F in GetFunctions())
             {
                 //Main function will be in the list again and needs to be skipped
-                if (F.ToLower() == MainFunction.ToLower())
+                if (F.FunctionName.ToLower() == MainFunction.ToLower())
                 {
                     continue;
                 }
                 Lines.Add("");
                 Lines.Add($"@{F}");
-                Lines.AddRange(GetFunctionCode(F));
+                Lines.AddRange(GetFunctionCode(F.FunctionName));
                 var LastLine = Basic.Compiler.SplitLine(Lines[Lines.Count - 1]);
                 if (!LastLine.Any(Basic.Compiler.IsReturn))
                 {
@@ -269,7 +270,7 @@ namespace BasicIDE
             {
                 foreach (var F in GetFunctions())
                 {
-                    File.Copy(GetName(F), Path.Combine(NewDirectory, $"{F}{Extension}"));
+                    File.Copy(GetName(F.FunctionName), Path.Combine(NewDirectory, $"{F}{Extension}"));
                 }
             }
             ProjectDirectory = NewDirectory;

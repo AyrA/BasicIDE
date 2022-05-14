@@ -110,7 +110,7 @@ namespace BasicIDE.Basic
                 //Handle label. Labels are only allowed in the first part
                 if (Parts.Skip(1).Any(m => IsLabel(m)))
                 {
-                    Ret.AddMessage(new SyntaxError(i-SourceOffset, SyntaxErrorType.Error, "Label only allowed at the start of a concatenated line", FunctionName));
+                    Ret.AddMessage(new SyntaxError(i - SourceOffset, SyntaxErrorType.Error, "Label only allowed at the start of a concatenated line", FunctionName));
                 }
                 if (IsLabel(Parts[0]))
                 {
@@ -221,12 +221,19 @@ namespace BasicIDE.Basic
                 throw new ArgumentException($"Line not a label call statement: {L}");
             }
             //Simple call statement
-            var M = Regex.Match(L, @"^\s*CALL\s*(@\w+)");
+            var M = Regex.Match(L, @"^\s*CALL\s*(@\w+)\s*(?:\((.+)\))?");
             if (M.Success)
             {
+                var SimpleArgs = M.Groups[2].Value.Trim();
+                if (!string.IsNullOrEmpty(SimpleArgs))
+                {
+                    throw new NotImplementedException("Arguments: " + SimpleArgs);
+                    //Prepare arguments
+                }
                 return new string[] { "GOSUB " + M.Groups[1].Value };
             }
-            M = Regex.Match(L, @"^\s*([^=]+)=\s*CALL([" + Types + @"]?)\s*(@\w+)");
+            //Extended call statement
+            M = Regex.Match(L, @"^\s*([^=]+)=\s*CALL([" + Types + @"]?)\s*(@\w+)\s*(?:\((.+)\))?");
             if (!M.Success)
             {
                 throw new ArgumentException("Not a valid extended CALL statement");
@@ -234,6 +241,12 @@ namespace BasicIDE.Basic
             var Assignment = M.Groups[1].Value.TrimEnd();
             var Type = M.Groups[2].Value;
             var Label = M.Groups[3].Value;
+            var ComplexArgs = M.Groups[4].Value.Trim();
+            if (!string.IsNullOrEmpty(ComplexArgs))
+            {
+                throw new NotImplementedException("Arguments: " + ComplexArgs);
+                //Prepare arguments
+            }
 
             //Infer type from assignment
             if (string.IsNullOrEmpty(Type))
@@ -278,6 +291,8 @@ namespace BasicIDE.Basic
                 Type = Statement[Statement.Length - 1].ToString();
                 //Handle constant strings
                 if (Type == "\"") { Type = "$"; }
+                //Handle constant numbers
+                if ("0123456789".Contains(Type)) { Type = "#"; }
                 if (Types.Contains(Type))
                 {
                     Res.AddMessage(new SyntaxError(LineNumber, SyntaxErrorType.Info, $"Return type not specified. Guessing from argument instead. Using: {Type}", FunctionName));
@@ -378,9 +393,8 @@ namespace BasicIDE.Basic
                 return false;
             }
             return
-                Regex.IsMatch(L, @"^\s*CALL\s*@\w+") ||
-                Regex.IsMatch(L, @"^\s*[^=]+=\s*CALL[" + Types + @"]?\s*@\w+");
-            //The type argument in the second regex is optional to catch syntax errors later.
+                Regex.IsMatch(L, @"^\s*CALL\s*@\w+\s*(\(.*\))?") ||
+                Regex.IsMatch(L, @"^\s*[^=]+=\s*CALL[" + Types + @"]?\s*@\w+\s*(\(.*\))?");
         }
 
         public static bool IsInstruction(string L)

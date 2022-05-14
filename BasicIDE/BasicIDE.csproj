@@ -49,6 +49,7 @@
     <Compile Include="Basic\Compiler.cs" />
     <Compile Include="Basic\CompilerConfig.cs" />
     <Compile Include="Basic\CompilerResult.cs" />
+    <Compile Include="Basic\FunctionDeclaration.cs" />
     <Compile Include="Basic\Line.cs" />
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
