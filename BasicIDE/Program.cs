@@ -19,7 +19,7 @@ namespace BasicIDE
         static void Main(string[] Args)
         {
 #if DEBUG
-            //Args = new string[] { @"C:\Temp\help.t80" };
+            Args = new string[] { @"C:\Temp\div.t80" };
 #endif
             ReloadSettings(true);
             if (Config != null)

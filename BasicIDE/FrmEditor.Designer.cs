@@ -29,37 +29,66 @@ namespace BasicIDE
         /// </summary>
         private void InitializeComponent()
         {
-            this.TbEditor = new System.Windows.Forms.TextBox();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEditor));
+            this.TbCode = new FastColoredTextBoxNS.FastColoredTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.TbCode)).BeginInit();
             this.SuspendLayout();
             // 
-            // TbEditor
+            // TbCode
             // 
-            this.TbEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TbEditor.Location = new System.Drawing.Point(0, 0);
-            this.TbEditor.Multiline = true;
-            this.TbEditor.Name = "TbEditor";
-            this.TbEditor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TbEditor.Size = new System.Drawing.Size(584, 361);
-            this.TbEditor.TabIndex = 0;
-            this.TbEditor.TextChanged += new System.EventHandler(this.TbEditor_TextChanged);
+            this.TbCode.AllowMacroRecording = false;
+            this.TbCode.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.TbCode.AutoIndent = false;
+            this.TbCode.AutoIndentChars = false;
+            this.TbCode.AutoIndentExistingLines = false;
+            this.TbCode.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.TbCode.BackBrush = null;
+            this.TbCode.CharHeight = 14;
+            this.TbCode.CharWidth = 8;
+            this.TbCode.CommentPrefix = "\'";
+            this.TbCode.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TbCode.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.TbCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TbCode.Font = new System.Drawing.Font("Courier New", 9.75F);
+            this.TbCode.IsReplaceMode = false;
+            this.TbCode.Location = new System.Drawing.Point(0, 0);
+            this.TbCode.Name = "TbCode";
+            this.TbCode.Paddings = new System.Windows.Forms.Padding(0);
+            this.TbCode.PreferredLineWidth = 254;
+            this.TbCode.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.TbCode.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("TbCode.ServiceColors")));
+            this.TbCode.Size = new System.Drawing.Size(584, 361);
+            this.TbCode.TabIndex = 1;
+            this.TbCode.Zoom = 100;
+            this.TbCode.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.TbCode_TextChanged);
             // 
             // FrmEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 361);
-            this.Controls.Add(this.TbEditor);
+            this.Controls.Add(this.TbCode);
             this.Name = "FrmEditor";
             this.Text = "Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmEditor_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmEditor_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.TbCode)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox TbEditor;
+        private FastColoredTextBoxNS.FastColoredTextBox TbCode;
     }
 }

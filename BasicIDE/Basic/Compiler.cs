@@ -19,29 +19,30 @@ namespace BasicIDE.Basic
         /// !=single
         /// %=int
         /// </summary>
-        private const string Types = "$#!%";
+        public const string Types = "$#!%";
         /// <summary>
         /// Default type in use by BASIC
         /// </summary>
         private const string DefaultType = "#";
 
         /// <summary>
-        /// Known instructions
+        /// Known instructions.
+        /// They're generally alphabetically sorted but tweaked to be in regex order for longest match.
         /// </summary>
-        private static readonly string[] Instructions = new string[]
+        public static readonly string[] Instructions = new string[]
         {
             "?",
-            "ATN", "BEEP", "CALL", "CDBL", "CHR$", "CINT", "CLEAR", "CLOAD", "CLOADM", "CLOSE", "CLS",
-            "COM", "CONT", "COS", "CSAVE", "CSAVEM", "CSNG", "CSRLIN", "DATA", "DATE$",
-            "DAY$", "DEFDBL", "DEFINT", "DEFSNG", "DEFSTR", "DIM", "EDIT", "END", "EOF", "ERL", "ERR", "ERROR",
-            "EXP", "FILES", "FIX", "FOR", "NEXT", "FRE", "GOSUB", "GOTO", "HIMEM", "IF", "INKEY$", "INP",
-            "INPUT", "INPUT$", "INSTR", "INT", "IPL", "KEY", "KILL", "LCOPY",
-            "LEFT$", "LEN", "LET", "LINE", "LIST", "LLIST", "LOAD", "LOADM", "LOG", "LPOS", "LPRINT",
+            "ATN", "BEEP", "CALL", "CDBL", "CHR$", "CINT", "CLEAR", "CLOADM", "CLOAD", "CLOSE", "CLS",
+            "COM", "CONT", "COS", "CSAVEM", "CSAVE", "CSNG", "CSRLIN", "DATA", "DATE$",
+            "DAY$", "DEFDBL", "DEFINT", "DEFSNG", "DEFSTR", "DIM", "EDIT", "END", "EOF", "ERL", "ERROR", "ERR",
+            "EXP", "FILES", "FIX", "FOR", "NEXT", "FRE", "GOSUB", "GOTO", "HIMEM", "IF", "INKEY$", "INPUT$",
+            "INPUT", "INP", "INSTR", "INT", "IPL", "KEY", "KILL", "LCOPY",
+            "LEFT$", "LEN", "LET", "LINE", "LLIST", "LIST", "LOAD", "LOADM", "LOG", "LPOS", "LPRINT",
             "MAXFILES", "MAXRAM", "MDM", "MENU", "MERGE", "MID$", "MOTOR", "NAME", "NEW",
             "ON", "OPEN", "OUT", "PEEK", "POKE", "POS", "POWER",
-            "PRESET", "PRINT", "PSET", "READ", "REM", "RESTORE", "RESUME", "RIGHT$", "RND", "RUN", "RUNM",
-            "SAVE", "SAVEM", "SCREEN", "SGN", "SIN", "SOUND", "SPACE$", "SQR", "STOP", "STR$", "STRING$", "TAB",
-            "TAN", "TIME$", "VAL", "VARPTR"
+            "PRESET", "PRINT@", "PRINT", "PSET", "READ", "REM", "RESTORE", "RESUME", "RIGHT$", "RND", "RUNM", "RUN",
+            "SAVEM", "SAVE", "SCREEN", "SGN", "SIN", "SOUND", "SPACE$", "SQR", "STEP", "STOP", "STR$", "STRING$", "TAB",
+            "TAN", "THEN", "TIME$", "TO", "VAL", "VARPTR"
         };
 
         public CompilerConfig Config { get; }
