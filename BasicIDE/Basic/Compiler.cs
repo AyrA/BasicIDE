@@ -51,7 +51,7 @@ namespace BasicIDE.Basic
             this.Config = Config ?? throw new ArgumentNullException(nameof(Config));
         }
 
-        public CompilerResult Compile(string[] Lines, string[] Functions)
+        public CompilerResult Compile(string[] Lines, FunctionDeclaration[] Functions)
         {
             if (Lines == null)
             {
@@ -63,7 +63,7 @@ namespace BasicIDE.Basic
                 throw new ArgumentNullException(nameof(Functions));
             }
             //Convert names to uppercase for case insensitive comparison
-            Functions = Functions.Select(m => m.ToUpper()).ToArray();
+            var FunctionNames = Functions.Select(m => m.FunctionName.ToUpper()).ToArray();
 
             var SourceOffset = 0;
             var Source = new List<string>(Lines);
@@ -86,25 +86,22 @@ namespace BasicIDE.Basic
                     continue;
                 }
                 var Parts = new List<string>(SplitLine(L));
+                Parts.RemoveAll(IsArg);
                 if (Config.StripComments)
                 {
                     Parts.RemoveAll(IsComment);
-                    if (Parts.Count == 0)
-                    {
-                        continue;
-                    }
                 }
                 if (Config.StripDebug)
                 {
                     Parts.RemoveAll(IsDebug);
-                    if (Parts.Count == 0)
-                    {
-                        continue;
-                    }
                 }
                 else
                 {
                     Parts = Parts.Select(StripDebugSymbol).ToList();
+                }
+                if (Parts.Count == 0)
+                {
+                    continue;
                 }
 
                 //Handle label. Labels are only allowed in the first part
@@ -114,8 +111,9 @@ namespace BasicIDE.Basic
                 }
                 if (IsLabel(Parts[0]))
                 {
-                    var LineLabel = Parts[0].ToUpper().Trim();
-                    var FunctionPreview = Parts[0].Substring(1);
+                    //Match label but without arguments
+                    var LineLabel = Regex.Match(Parts[0], @"@\w+").Value.ToUpper().Trim();
+                    var FunctionPreview = LineLabel.Substring(1);
                     if (Labels.ContainsKey(Parts[0]))
                     {
                         Ret.AddMessage(new SyntaxError(i - SourceOffset, SyntaxErrorType.Error, $"Label already defined: {Parts[0]}", FunctionName));
@@ -125,7 +123,7 @@ namespace BasicIDE.Basic
                         Ret.AddMessage(new SyntaxError(i - SourceOffset, SyntaxErrorType.Error, $"Duplicate label for same line. Label: {Parts[0]}", FunctionName));
                     }
                     //If the label is not in the known function list it's a manually created label.
-                    if (Functions.Contains(FunctionPreview.ToUpper()))
+                    if (FunctionNames.Contains(FunctionPreview.ToUpper()))
                     {
                         FunctionName = FunctionPreview;
                     }
@@ -141,9 +139,15 @@ namespace BasicIDE.Basic
                 {
                     if (IsCall(Parts[j]))
                     {
+                        var CallName = GetCallLabel(Parts[j]).ToLower();
+                        var CallFunc = Functions.FirstOrDefault(m => m.FunctionName.ToLower() == CallName);
                         try
                         {
-                            var instructions = FormatCall(Parts[j], Ret, i - SourceOffset, FunctionName);
+                            if (CallFunc == null)
+                            {
+                                throw new Exception($"Function does not exist: {CallName}");
+                            }
+                            var instructions = FormatCall(Parts[j], Ret, i - SourceOffset, Functions.First(m => m.FunctionName.ToUpper() == FunctionName.ToUpper()), CallFunc);
                             Parts[j] = instructions[0];
                             if (instructions.Length > 1)
                             {
@@ -174,7 +178,7 @@ namespace BasicIDE.Basic
                 }
                 CompiledLines.Add(new Line()
                 {
-                    Code = string.Join(":", Parts.Where(m => !string.IsNullOrWhiteSpace(m))),
+                    Code = string.Join(" : ", Parts.Where(m => !string.IsNullOrWhiteSpace(m))),
                     Label = Label,
                     Number = LineNumber,
                     LineIndex = i,
@@ -214,8 +218,10 @@ namespace BasicIDE.Basic
             return Ret;
         }
 
-        private string[] FormatCall(string L, CompilerResult Res, int LineNumber, string FunctionName)
+        private string[] FormatCall(string L, CompilerResult Res, int LineNumber, FunctionDeclaration CurrentFunction, FunctionDeclaration CalledFunction)
         {
+            var Lines = new List<string>();
+            string[] Arguments;
             if (!IsCall(L))
             {
                 throw new ArgumentException($"Line not a label call statement: {L}");
@@ -227,10 +233,18 @@ namespace BasicIDE.Basic
                 var SimpleArgs = M.Groups[2].Value.Trim();
                 if (!string.IsNullOrEmpty(SimpleArgs))
                 {
-                    throw new NotImplementedException("Arguments: " + SimpleArgs);
-                    //Prepare arguments
+                    Arguments = ParseArguments(SimpleArgs);
+                    if (Arguments.Length != CalledFunction.Arguments.Length)
+                    {
+                        throw new ArgumentException($"Number of supplied arguments ({Arguments.Length}) doesn't matches requested number of arguments ({CalledFunction.Arguments.Length})");
+                    }
+                    Lines.Add(string.Join(" : ", Arguments.Select((v, i) => $"{CalledFunction.Arguments[i]}={v}")) + ":GOSUB " + M.Groups[1].Value);
                 }
-                return new string[] { "GOSUB " + M.Groups[1].Value };
+                else
+                {
+                    Lines.Add("GOSUB " + M.Groups[1].Value);
+                }
+                return Lines.ToArray();
             }
             //Extended call statement
             M = Regex.Match(L, @"^\s*([^=]+)=\s*CALL([" + Types + @"]?)\s*(@\w+)\s*(?:\((.+)\))?");
@@ -244,8 +258,12 @@ namespace BasicIDE.Basic
             var ComplexArgs = M.Groups[4].Value.Trim();
             if (!string.IsNullOrEmpty(ComplexArgs))
             {
-                throw new NotImplementedException("Arguments: " + ComplexArgs);
-                //Prepare arguments
+                Arguments = ParseArguments(ComplexArgs);
+                if (Arguments.Length != CalledFunction.Arguments.Length)
+                {
+                    throw new ArgumentException($"Number of supplied arguments ({Arguments.Length}) doesn't matches requested number of arguments ({CalledFunction.Arguments.Length})");
+                }
+                Lines.Add(string.Join(" : ", Arguments.Select((v, i) => $"{CalledFunction.Arguments[i]}={v}")));
             }
 
             //Infer type from assignment
@@ -255,22 +273,23 @@ namespace BasicIDE.Basic
                 if (!Types.Contains(Type))
                 {
                     Type = DefaultType;
-                    Res.AddMessage(new SyntaxError(LineNumber, SyntaxErrorType.Warning, $"Unable to infer type of extended CALL from assignment. Using default type: {DefaultType}", FunctionName));
+                    Res.AddMessage(new SyntaxError(LineNumber, SyntaxErrorType.Warning, $"Unable to infer type of extended CALL from assignment. Using default type: {DefaultType}", CurrentFunction.FunctionName));
                 }
-                /*
-                else
-                {
-                    Res.AddMessage(new SyntaxError(LineNumber, SyntaxErrorType.Info, $"extended CALL with unspecified type. Using detected type: {Type}", FunctionName));
-                }
-                //*/
             }
             var IsString = Type == "$";
             var BaseValue = IsString ? "\"\"" : "0";
             var RetType = IsString ? '$' : '#';
-            return new string[]{
-                $"{Config.ReturnVar}{RetType}={BaseValue} : GOSUB {Label}",
-                $"{Assignment}={Config.ReturnVar}{RetType}"
-            };
+            if (Lines.Count > 0)
+            {
+                Lines[0] += " : ";
+            }
+            else
+            {
+                Lines.Add(string.Empty);
+            }
+            Lines[0] += $"{Config.ReturnVar}{RetType}={BaseValue} : GOSUB {Label}";
+            Lines.Add($"{Assignment}={Config.ReturnVar}{RetType}");
+            return Lines.ToArray();
         }
 
         private string FormatReturn(string L, CompilerResult Res, int LineNumber, string FunctionName)
@@ -370,6 +389,11 @@ namespace BasicIDE.Basic
             return Ret.Distinct().ToArray();
         }
 
+        public static bool IsArg(string Command)
+        {
+            return Regex.IsMatch(Command.ToUpper(), @"^\s*ARG\s*\S");
+        }
+
         public static bool IsReturn(string L)
         {
             return L.Trim().ToUpper().StartsWith("RETURN");
@@ -393,8 +417,24 @@ namespace BasicIDE.Basic
                 return false;
             }
             return
-                Regex.IsMatch(L, @"^\s*CALL\s*@\w+\s*(\(.*\))?") ||
-                Regex.IsMatch(L, @"^\s*[^=]+=\s*CALL[" + Types + @"]?\s*@\w+\s*(\(.*\))?");
+                Regex.IsMatch(L, @"^\s*CALL\s*@\w+\s*(\(.*\))?", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(L, @"^\s*[^=]+=\s*CALL[" + Types + @"]?\s*@\w+\s*(\(.*\))?", RegexOptions.IgnoreCase);
+        }
+
+        public static string GetCallLabel(string L)
+        {
+            L = L.Trim().ToUpper();
+            var M = Regex.Match(L, @"^\s*CALL\s*@(\w+)", RegexOptions.IgnoreCase);
+            if (M.Success)
+            {
+                return M.Groups[1].Value;
+            }
+            M = Regex.Match(L, @"^\s*[^=]+=\s*CALL[" + Types + @"]?\s*@(\w+)", RegexOptions.IgnoreCase);
+            if (M.Success)
+            {
+                return M.Groups[1].Value;
+            }
+            throw new ArgumentException($"Not a valid call statement: {L}");
         }
 
         public static bool IsInstruction(string L)
@@ -417,7 +457,7 @@ namespace BasicIDE.Basic
 
         public static bool IsLabel(string L)
         {
-            return !string.IsNullOrWhiteSpace(L) && Regex.IsMatch(L, @"^\s*@\w+\s*$");
+            return !string.IsNullOrWhiteSpace(L) && Regex.IsMatch(L, @"^\s*@\w+\s*(?:\(.*\))?\s*$");
         }
 
         public static bool HasLabelRef(string L)
@@ -439,6 +479,64 @@ namespace BasicIDE.Basic
                 }
             }
             return false;
+        }
+
+        public static string[] ParseArguments(string Args)
+        {
+            if (string.IsNullOrWhiteSpace(Args))
+            {
+                return new string[0];
+            }
+            List<string> Parsed = new List<string>();
+            int level = 0;
+            bool InStr = false;
+            string buffer = string.Empty;
+            foreach (var C in Args)
+            {
+                //Add characters in a string as-is
+                if (C != '"' && InStr)
+                {
+                    buffer += C;
+                    continue;
+                }
+                //Handle string start and end
+                if (C == '"')
+                {
+                    buffer += C;
+                    InStr = !InStr;
+                    continue;
+                }
+                //Handle argument comma if at level zero
+                if (C == ',' && level == 0)
+                {
+                    Parsed.Add(buffer.Trim());
+                    buffer = string.Empty;
+                    continue;
+                }
+                if (C == '(')
+                {
+                    buffer += C;
+                    ++level;
+                    continue;
+                }
+                if (C == ')')
+                {
+                    if (--level < 0)
+                    {
+                        throw new ArgumentException("Too many closing parenthesis");
+                    }
+                    buffer += C;
+                    continue;
+                }
+                //No case matched. Add character as-is
+                buffer += C;
+            }
+            if (level != 0)
+            {
+                throw new ArgumentException("Too many opening parenthesis");
+            }
+            Parsed.Add(buffer.Trim());
+            return Parsed.ToArray();
         }
     }
 }

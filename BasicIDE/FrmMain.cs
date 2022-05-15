@@ -179,7 +179,7 @@ namespace BasicIDE
             PopulateTree(ProjectFile);
             var IsDebug = buildTypeToolStripMenuItem.SelectedItem.ToString() == "Debug";
             var C = new Basic.Compiler(IsDebug ? Basic.CompilerConfig.Debug : Basic.CompilerConfig.Release);
-            return C.Compile(ProjectFile.GetAllCode(), ProjectFile.GetFunctions().Select(m => m.FunctionName).ToArray());
+            return C.Compile(ProjectFile.GetAllCode(), ProjectFile.GetFunctions().ToArray());
         }
 
         private void NoProjectMessage()
