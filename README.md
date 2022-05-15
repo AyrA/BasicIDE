@@ -10,3 +10,10 @@ You can find more details here:
 
 - [Basic IDE help](https://help.ayra.ch/basic-ide)
 - [TRS-80 model 100 basic reference](https://help.ayra.ch/trs80-reference)
+
+## Components
+
+This application makes use of the FastColoredTextBox control,
+licensed under the LGPL version 3.
+
+[View code](https://github.com/PavelTorgashov/FastColoredTextBox)
