@@ -148,6 +148,10 @@ namespace BasicIDE.Basic
                             {
                                 throw new Exception($"Function does not exist: {CallName}");
                             }
+                            if (j < Parts.Count - 1 && !IsComment(Parts[j + 1]))
+                            {
+                                Ret.AddMessage(new SyntaxError(i - SourceOffset, SyntaxErrorType.Warning, $"Useless instruction after function call: {Parts[j + 1]}", FunctionName));
+                            }
                             var instructions = FormatCall(Parts[j], Ret, i - SourceOffset, Functions.First(m => m.FunctionName.ToUpper() == FunctionName.ToUpper()), CallFunc);
                             Parts[j] = instructions[0];
                             if (instructions.Length > 1)
