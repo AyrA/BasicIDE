@@ -7,8 +7,14 @@ using System.Xml.Serialization;
 
 namespace BasicIDE
 {
+    /// <summary>
+    /// Genric tools and helper functions
+    /// </summary>
     public static class Tools
     {
+        /// <summary>
+        /// Baud rates supported by the TRS-80
+        /// </summary>
         private static readonly int[] baudRates = new int[]
         {
             75,
@@ -22,14 +28,35 @@ namespace BasicIDE
             19200
         };
 
+        /// <summary>
+        /// Stop bits supported by the TRS-80
+        /// </summary>
         private static readonly int[] stopBits = new int[] { 1, 2 };
 
+        /// <summary>
+        /// Parities supported by the TRS-80
+        /// </summary>
         private const string parity = "None,Even,Odd,Ignore";
 
+        /// <summary>
+        /// Gets supported baud rates
+        /// </summary>
         public static int[] BaudRates { get => (int[])baudRates.Clone(); }
+        /// <summary>
+        /// Gets supported stop bit values
+        /// </summary>
         public static int[] StopBits { get => (int[])stopBits.Clone(); }
+        /// <summary>
+        /// Gets supported parity settings
+        /// </summary>
         public static string[] Parity { get => parity.Split(','); }
 
+        /// <summary>
+        /// Serializes an object
+        /// </summary>
+        /// <typeparam name="T">Object type</typeparam>
+        /// <param name="type">Object to serialize</param>
+        /// <returns>Serialized object</returns>
         public static string ToXML<T>(this T type)
         {
             var ser = new XmlSerializer(typeof(T));
@@ -40,6 +67,12 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Deserializes an object
+        /// </summary>
+        /// <typeparam name="T">Object type</typeparam>
+        /// <param name="s">Serialized object</param>
+        /// <returns></returns>
         public static T FromXML<T>(this string s)
         {
             var ser = new XmlSerializer(typeof(T));
@@ -49,6 +82,13 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Implements Array.IndexOf
+        /// </summary>
+        /// <typeparam name="T">Array type</typeparam>
+        /// <param name="Array">Array</param>
+        /// <param name="Value">Value</param>
+        /// <returns>First index of value, or -1 if not found</returns>
         public static int IndexOf<T>(this T[] Array, T Value)
         {
             for (var i = 0; i < Array.Length; i++)
@@ -61,6 +101,15 @@ namespace BasicIDE
             return -1;
         }
 
+        /// <summary>
+        /// Gets the TRS-80 compatible port string
+        /// </summary>
+        /// <param name="BaudRate">Baud rate</param>
+        /// <param name="DataBits">Data bits</param>
+        /// <param name="P">Parity</param>
+        /// <param name="S">Stop bits</param>
+        /// <param name="H">Handshaking</param>
+        /// <returns>Port string</returns>
         public static string GetPortString(int BaudRate, int DataBits, Parity P, StopBits S, Handshake H)
         {
             string Ret = "";
@@ -123,6 +172,11 @@ namespace BasicIDE
             return Ret;
         }
 
+        /// <summary>
+        /// Formats a file size
+        /// </summary>
+        /// <param name="Length">File size</param>
+        /// <returns>File size formatted using SI prefixes and factor 1000</returns>
         public static string FormatSize(double Length)
         {
             var Sizes = ",K,M,G,T,P,E,Z,Y".Split(',');
@@ -135,6 +189,12 @@ namespace BasicIDE
             return Math.Round(Length, 2) + Sizes[index] + "B";
         }
 
+        /// <summary>
+        /// Checks if a [Flags] enum is exclusively made up of known values
+        /// </summary>
+        /// <typeparam name="T">Enum type</typeparam>
+        /// <param name="Value">Enum value</param>
+        /// <returns>true, if valid flags</returns>
         public static bool CheckValidFlags<T>(T Value) where T : Enum
         {
             //Filter out single entries immediately
@@ -151,9 +211,16 @@ namespace BasicIDE
             return (v & i) == v;
         }
 
+        /// <summary>
+        /// Converts an enum value into a long value
+        /// </summary>
+        /// <typeparam name="T">Enum type</typeparam>
+        /// <param name="Value">Enum value</param>
+        /// <returns>Numerical enum value</returns>
         public static ulong EnumToLong<T>(T Value) where T : Enum
         {
             var ValT = Enum.GetUnderlyingType(typeof(T));
+            //These values fit as-is
             if (ValT == typeof(short) || ValT == typeof(sbyte) || ValT == typeof(int) || ValT == typeof(long))
             {
                 return (ulong)Convert.ToInt64(Value);
