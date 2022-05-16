@@ -24,11 +24,7 @@ namespace BasicIDE
                 }
                 else
                 {
-                    ProjectFile = new Project(Filename);
-                    if (!ProjectFile.HasFunction(ProjectFile.MainFunction))
-                    {
-                        ProjectFile.SaveFunction(ProjectFile.MainFunction, "PRINT \"Hello, World!\"");
-                    }
+                    LoadProject(new Project(Filename));
                 }
             }
             catch (Exception ex)
@@ -37,8 +33,6 @@ namespace BasicIDE
                 Application.Exit();
             }
             buildTypeToolStripMenuItem.SelectedIndex = 0;
-            SetChange(false);
-            PopulateTree(ProjectFile);
         }
 
         public bool SaveAll()
@@ -314,6 +308,22 @@ namespace BasicIDE
             return MdiChildren.OfType<FrmEditor>().FirstOrDefault(m => m.FunctionName == FunctionName);
         }
 
+        private void LoadProject(Project P)
+        {
+            if (ProjectFile != null)
+            {
+                throw new InvalidOperationException("A project is already loaded");
+            }
+            ProjectFile = P;
+            if (!ProjectFile.HasFunction(ProjectFile.MainFunction))
+            {
+                ProjectFile.SaveFunction(ProjectFile.MainFunction, "PRINT \"Hello, World!\"");
+            }
+            SetChange(false);
+            PopulateTree(ProjectFile);
+            ShowCode(ProjectFile.MainFunction).WindowState = FormWindowState.Maximized;
+        }
+
         #region Events
 
         private void E_CodeEdit(object sender, EventArgs e)
@@ -389,9 +399,7 @@ namespace BasicIDE
                 //Use current application instance if no project loaded yet
                 if (ProjectFile == null)
                 {
-                    ProjectFile = P;
-                    SetChange(false);
-                    PopulateTree(ProjectFile);
+                    LoadProject(P);
                 }
                 else
                 {
