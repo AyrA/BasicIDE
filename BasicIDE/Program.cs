@@ -6,10 +6,19 @@ namespace BasicIDE
 {
     public static class Program
     {
+        /// <summary>
+        /// Event that is fired when the configuration changes
+        /// </summary>
         public static event Action ConfigUpdate = delegate { };
 
+        /// <summary>
+        /// Current configuration
+        /// </summary>
         public static Settings Config { get; private set; }
 
+        /// <summary>
+        /// Default settings file name
+        /// </summary>
         public static readonly string SettingsFile = Path.Combine(Application.StartupPath, "config.xml");
 
         /// <summary>
@@ -35,12 +44,19 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Reloads settings from file
+        /// </summary>
         public static void ReloadSettings()
         {
             ReloadSettings(false);
             ConfigUpdate();
         }
 
+        /// <summary>
+        /// Reloads settings from file
+        /// </summary>
+        /// <param name="IsInit">true, if first load</param>
         private static void ReloadSettings(bool IsInit)
         {
             while (true)
@@ -52,11 +68,13 @@ namespace BasicIDE
                 }
                 catch (FileNotFoundException)
                 {
+                    //Create config if it doesn't exists
                     Config = new Settings();
                     return;
                 }
                 catch (Exception ex)
                 {
+                    //Error on initial load can be ignored to apply defaults
                     if (IsInit)
                     {
                         var lines = new string[]
@@ -68,7 +86,7 @@ namespace BasicIDE
                             "[Retry] Try to load again",
                             "[Ignore] Use default configuration"
                         };
-                        switch (MessageBox.Show(string.Join(Environment.NewLine, lines), "Settings unavailable", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error))
+                        switch (MBox.EARI(string.Join(Environment.NewLine, lines), "Settings unavailable"))
                         {
                             case DialogResult.Abort:
                                 Config = null;
@@ -90,7 +108,7 @@ namespace BasicIDE
                             "[Retry] Try to load again",
                             "[Cancel] Skip loading and use existing configuration in memory"
                         };
-                        switch (MessageBox.Show(string.Join(Environment.NewLine, lines), "Settings unavailable", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error))
+                        switch (MBox.ERC(string.Join(Environment.NewLine, lines), "Settings unavailable"))
                         {
                             case DialogResult.Retry:
                                 break;
@@ -102,6 +120,9 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Saves settings to file
+        /// </summary>
         public static void SaveSettings()
         {
             while (true)
@@ -115,17 +136,15 @@ namespace BasicIDE
                 catch (Exception ex)
                 {
                     var lines = new string[]
-                        {
-                            "Configuration failed to save.",
-                            $"Reason: {ex.Message}",
-                            "",
-                            "Try again?"
-                        };
-                    switch (MessageBox.Show(string.Join(Environment.NewLine, lines), "Settings failed to save", MessageBoxButtons.YesNo, MessageBoxIcon.Error))
                     {
-                        case DialogResult.Yes:
+                        "Configuration failed to save.",
+                        $"Reason: {ex.Message}"
+                    };
+                    switch (MBox.ERC(string.Join(Environment.NewLine, lines), "Settings failed to save"))
+                    {
+                        case DialogResult.Retry:
                             break;
-                        case DialogResult.No:
+                        case DialogResult.Cancel:
                             return;
                     }
                 }
