@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace BasicIDE.Basic
 {
+    /// <summary>
+    /// Compiles IDE formatted BASIC code into TRS-80 line based code
+    /// </summary>
     public class Compiler
     {
         /// <summary>
@@ -45,13 +48,29 @@ namespace BasicIDE.Basic
             "TAN", "THEN", "TIME$", "TO", "VAL", "VARPTR"
         };
 
+        /// <summary>
+        /// Gets the current configuration
+        /// </summary>
         public CompilerConfig Config { get; }
 
+        /// <summary>
+        /// Creates a new instance with the given configuration
+        /// </summary>
+        /// <param name="Config">Configuration</param>
         public Compiler(CompilerConfig Config)
         {
             this.Config = Config ?? throw new ArgumentNullException(nameof(Config));
         }
 
+        /// <summary>
+        /// Compiles code
+        /// </summary>
+        /// <param name="Lines">Source code lines</param>
+        /// <param name="Functions">
+        /// Function definitions.
+        /// See <see cref="Project.GetFunctions"/>
+        /// </param>
+        /// <returns>Compilation result</returns>
         public CompilerResult Compile(string[] Lines, FunctionDeclaration[] Functions)
         {
             if (Lines == null)
@@ -223,6 +242,15 @@ namespace BasicIDE.Basic
             return Ret;
         }
 
+        /// <summary>
+        /// Formats a CALL statement and converts it into legacy code
+        /// </summary>
+        /// <param name="L">CALL line</param>
+        /// <param name="Res">Existing compiler result object</param>
+        /// <param name="LineNumber">Current line number</param>
+        /// <param name="CurrentFunction">Function the line is located at</param>
+        /// <param name="CalledFunction">Function the line calls</param>
+        /// <returns>BASIC Lines</returns>
         private string[] FormatCall(string L, CompilerResult Res, int LineNumber, FunctionDeclaration CurrentFunction, FunctionDeclaration CalledFunction)
         {
             var Lines = new List<string>();
@@ -297,6 +325,14 @@ namespace BasicIDE.Basic
             return Lines.ToArray();
         }
 
+        /// <summary>
+        /// Formats a RETURN statement and converts it into legacy code
+        /// </summary>
+        /// <param name="L">CALL line</param>
+        /// <param name="Res">Existing compiler result object</param>
+        /// <param name="LineNumber">Current line number</param>
+        /// <param name="FunctionName">Name of current function</param>
+        /// <returns>BASIC line</returns>
         private string FormatReturn(string L, CompilerResult Res, int LineNumber, string FunctionName)
         {
             if (!IsReturn(L))
@@ -336,6 +372,12 @@ namespace BasicIDE.Basic
             return $"{Config.ReturnVar}{RetType}={Statement} : RETURN";
         }
 
+        /// <summary>
+        /// Strips the debug symbol (if present) from a command
+        /// </summary>
+        /// <param name="Command">Command</param>
+        /// <returns>Command without debug symbol</returns>
+        /// <remarks>This strips regardless of <see cref="CompilerConfig.StripDebug"/> setting</remarks>
         private static string StripDebugSymbol(string Command)
         {
             var pos = Command.IndexOf('#');
@@ -380,6 +422,11 @@ namespace BasicIDE.Basic
             return Segments.ToArray();
         }
 
+        /// <summary>
+        /// Returns all distinct labels found in the given lines
+        /// </summary>
+        /// <param name="Lines">Code lines</param>
+        /// <returns>Labels</returns>
         public static string[] GetLabels(string[] Lines)
         {
             var Ret = new List<string>();
@@ -394,26 +441,52 @@ namespace BasicIDE.Basic
             return Ret.Distinct().ToArray();
         }
 
+        /// <summary>
+        /// Checks if the command is an ARG statement
+        /// </summary>
+        /// <param name="Command">Command</param>
+        /// <returns>true if ARG command</returns>
         public static bool IsArg(string Command)
         {
             return Regex.IsMatch(Command.ToUpper(), @"^\s*ARG\s*\S");
         }
 
+        /// <summary>
+        /// Checks if the command is a RETURN statement
+        /// </summary>
+        /// <param name="L">BASIC Line</param>
+        /// <returns>true, if RETURN</returns>
         public static bool IsReturn(string L)
         {
             return L.Trim().ToUpper().StartsWith("RETURN");
         }
 
+        /// <summary>
+        /// Checks if the entire instruction is a comment
+        /// </summary>
+        /// <param name="L">Command</param>
+        /// <returns>true, if a comment (REM or single quote)</returns>
         public static bool IsComment(string L)
         {
             return L.Trim().ToUpper().StartsWith("REM") || L.Trim().StartsWith("'");
         }
 
+        /// <summary>
+        /// Gets if the instruction is only to be run in debug mode
+        /// </summary>
+        /// <param name="L">Instruction</param>
+        /// <returns>true, if debug instruction</returns>
         public static bool IsDebug(string L)
         {
             return L.TrimStart().StartsWith("#");
         }
 
+        /// <summary>
+        /// Gets if the instruction is a function call
+        /// </summary>
+        /// <param name="L">Instruction</param>
+        /// <returns>true, if function call</returns>
+        /// <remarks>This will not consider GOSUB a function call</remarks>
         public static bool IsCall(string L)
         {
             L = L.Trim().ToUpper();
@@ -426,6 +499,11 @@ namespace BasicIDE.Basic
                 Regex.IsMatch(L, @"^\s*[^=]+=\s*CALL[" + Types + @"]?\s*@\w+\s*(\(.*\))?", RegexOptions.IgnoreCase);
         }
 
+        /// <summary>
+        /// Gets the label component of a CALL instruction
+        /// </summary>
+        /// <param name="L">Command</param>
+        /// <returns>Label component</returns>
         public static string GetCallLabel(string L)
         {
             L = L.Trim().ToUpper();
@@ -442,29 +520,23 @@ namespace BasicIDE.Basic
             throw new ArgumentException($"Not a valid call statement: {L}");
         }
 
-        public static bool IsInstruction(string L)
-        {
-            L = L.Trim().ToUpper();
-            if (Regex.IsMatch(L, @"^[A-Z]\w*[" + Types + @"]?\s*="))
-            {
-                //Assignment to a variable
-                return true;
-            }
-            foreach (var I in Instructions)
-            {
-                if (L.StartsWith(I))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
+        /// <summary>
+        /// Checks if the line is a label
+        /// </summary>
+        /// <param name="L">Line</param>
+        /// <returns>true, if label</returns>
+        /// <remarks>Labels are only valid at the start of a line</remarks>
         public static bool IsLabel(string L)
         {
             return !string.IsNullOrWhiteSpace(L) && Regex.IsMatch(L, @"^\s*@\w+\s*(?:\(.*\))?\s*$");
         }
 
+        /// <summary>
+        /// Checks if the line has a label reference anywhere
+        /// </summary>
+        /// <param name="L">Line</param>
+        /// <returns>true, if label reference present</returns>
+        /// <remarks>This properly ignores strings</remarks>
         public static bool HasLabelRef(string L)
         {
             if (string.IsNullOrWhiteSpace(L))
@@ -486,6 +558,11 @@ namespace BasicIDE.Basic
             return false;
         }
 
+        /// <summary>
+        /// Parses function arguments into a list of values
+        /// </summary>
+        /// <param name="Args">Argument string (contents between parenthesis)</param>
+        /// <returns>Argument list</returns>
         public static string[] ParseArguments(string Args)
         {
             if (string.IsNullOrWhiteSpace(Args))
