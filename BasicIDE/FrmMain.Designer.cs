@@ -476,14 +476,14 @@ namespace BasicIDE
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.aboutToolStripMenuItem.Text = "&About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // projectWebsiteToolStripMenuItem
             // 
             this.projectWebsiteToolStripMenuItem.Name = "projectWebsiteToolStripMenuItem";
             this.projectWebsiteToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.projectWebsiteToolStripMenuItem.Text = "&Project Website";
-            this.projectWebsiteToolStripMenuItem.Click += new System.EventHandler(this.projectWebsiteToolStripMenuItem_Click);
+            this.projectWebsiteToolStripMenuItem.Click += new System.EventHandler(this.ProjectWebsiteToolStripMenuItem_Click);
             // 
             // LvErrors
             // 

@@ -730,7 +730,7 @@ namespace BasicIDE
             }
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var Dlg = new FrmAbout())
             {
@@ -738,7 +738,7 @@ namespace BasicIDE
             }
         }
 
-        private void projectWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ProjectWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/AyrA/BasicIDE").Dispose();
         }
