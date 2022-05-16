@@ -7,35 +7,78 @@ using System.Xml.Serialization;
 
 namespace BasicIDE
 {
+    /// <summary>
+    /// Represents a project file
+    /// </summary>
     public class Project
     {
+        /// <summary>
+        /// Project metadata
+        /// </summary>
         [Serializable]
         public class ProjectData
         {
+            /// <summary>
+            /// Project name
+            /// </summary>
             public string Title { get; set; }
+            /// <summary>
+            /// Name of main function
+            /// </summary>
             public string MainFunction { get; set; }
         }
 
+        /// <summary>
+        /// Code file extension
+        /// </summary>
         private const string Extension = ".bas";
+        /// <summary>
+        /// Inidial code for main function
+        /// </summary>
         private const string DefaultCode = "PRINT \"Hello, World!\"";
 
+        /// <summary>
+        /// Pattern for valid function names
+        /// </summary>
         private static readonly Regex Pattern = new Regex(@"^\w+$");
+
+        /// <summary>
+        /// Name of main function
+        /// </summary>
         private string main;
 
+        /// <summary>
+        /// Gets or sets the project name
+        /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets the project file directory
+        /// </summary>
         [XmlIgnore]
         public string ProjectDirectory { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the main function
+        /// </summary>
         public string MainFunction
         {
             get { return main; }
         }
 
+        /// <summary>
+        /// Creates a new, empty project
+        /// </summary>
         public Project()
         {
             Title = "New project";
             main = "main";
         }
 
+        /// <summary>
+        /// Loads a project from file
+        /// </summary>
+        /// <param name="FileName">Project file name</param>
         public Project(string FileName)
         {
             if (string.IsNullOrWhiteSpace(FileName))
@@ -57,11 +100,20 @@ namespace BasicIDE
             CheckMain();
         }
 
+        /// <summary>
+        /// Checks if the function name is valid
+        /// </summary>
+        /// <param name="FunctionName">Function name</param>
+        /// <returns>true, if valid</returns>
         public static bool IsValidFunctionName(string FunctionName)
         {
             return !string.IsNullOrWhiteSpace(FunctionName) && Pattern.IsMatch(FunctionName);
         }
 
+        /// <summary>
+        /// Rename the main function
+        /// </summary>
+        /// <param name="FunctionName">New function name</param>
         public void SetMainFunction(string FunctionName)
         {
             if (string.IsNullOrEmpty(ProjectDirectory))
@@ -88,6 +140,10 @@ namespace BasicIDE
             main = FunctionName;
         }
 
+        /// <summary>
+        /// Adds a new function to the project
+        /// </summary>
+        /// <param name="FunctionName">Function name</param>
         public void AddFunction(string FunctionName)
         {
             if (HasFunction(FunctionName))
@@ -97,11 +153,20 @@ namespace BasicIDE
             SaveFunction(FunctionName, DefaultCode);
         }
 
+        /// <summary>
+        /// Gets the full file name that contains the given function
+        /// </summary>
+        /// <param name="FunctionName">Function name</param>
+        /// <returns>File name</returns>
+        /// <remarks>File does not needs to exist. Name is not checked for validity</remarks>
         private string GetName(string FunctionName)
         {
             return Path.Combine(ProjectDirectory, FunctionName) + Extension;
         }
 
+        /// <summary>
+        /// Checks if main function exists, and if not, creates it
+        /// </summary>
         private void CheckMain()
         {
             var P = Path.Combine(ProjectDirectory, main + Extension);
@@ -111,6 +176,10 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Gets all functions
+        /// </summary>
+        /// <returns>Function declarations</returns>
         public IEnumerable<Basic.FunctionDeclaration> GetFunctions()
         {
             foreach (var S in Directory.EnumerateFiles(ProjectDirectory, "*.bas"))
@@ -120,6 +189,11 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Checks if a given function exists
+        /// </summary>
+        /// <param name="FunctionName">Function name</param>
+        /// <returns>true, if it exists</returns>
         public bool HasFunction(string FunctionName)
         {
             if (!IsValidFunctionName(FunctionName) || string.IsNullOrEmpty(ProjectDirectory))
@@ -129,6 +203,11 @@ namespace BasicIDE
             return File.Exists(GetName(FunctionName));
         }
 
+        /// <summary>
+        /// Gets the code of a function
+        /// </summary>
+        /// <param name="FunctionName">Function name</param>
+        /// <returns>Code lines</returns>
         public string[] GetFunctionCode(string FunctionName)
         {
             if (!IsValidFunctionName(FunctionName))
@@ -145,6 +224,11 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Saves code for a function
+        /// </summary>
+        /// <param name="FunctionName">Function name</param>
+        /// <param name="Code">Function code</param>
         public void SaveFunction(string FunctionName, string Code)
         {
             if (!IsValidFunctionName(FunctionName))
@@ -161,6 +245,11 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Renames a function
+        /// </summary>
+        /// <param name="FunctionName">Old function name</param>
+        /// <param name="NewName">New function name</param>
         public void RenameFunction(string FunctionName, string NewName)
         {
             if (!IsValidFunctionName(FunctionName))
@@ -183,6 +272,10 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Deletes a function
+        /// </summary>
+        /// <param name="FunctionName">Function name</param>
         public void DeleteFunction(string FunctionName)
         {
             if (!IsValidFunctionName(FunctionName))
@@ -203,6 +296,14 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Gets all code from all functions
+        /// </summary>
+        /// <returns>All code</returns>
+        /// <remarks>
+        /// Code of main function always comes first.
+        /// Order of other code is undefined.
+        /// </remarks>
         public string[] GetAllCode()
         {
             if (!File.Exists(GetName(MainFunction)))
@@ -236,6 +337,11 @@ namespace BasicIDE
             return Lines.ToArray();
         }
 
+        /// <summary>
+        /// Save project file under new name
+        /// </summary>
+        /// <param name="FileName">Project file name</param>
+        /// <remarks>This will also copy all code if this is an existing project</remarks>
         public void SaveAs(string FileName)
         {
             if (string.IsNullOrWhiteSpace(FileName))
@@ -281,6 +387,9 @@ namespace BasicIDE
             CheckMain();
         }
 
+        /// <summary>
+        /// Save project with existing file name
+        /// </summary>
         public void Save()
         {
             if (string.IsNullOrEmpty(ProjectDirectory))
