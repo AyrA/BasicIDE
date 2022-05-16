@@ -4,8 +4,12 @@ using System.Windows.Forms;
 namespace BasicIDE
 {
     /// <summary>
-    /// Make Message box usage more comfortable
+    /// Make Message box usage more comfortable.
     /// </summary>
+    /// <remarks>
+    /// The first letter of a method is the box type, the other letters the buttons.
+    /// EARI: Error box with [Abort] + [Retry] + [Ignore]
+    /// </remarks>
     public static class MBox
     {
         private static IEnumerable<Form> Forms()
@@ -18,6 +22,7 @@ namespace BasicIDE
 
         public static DialogResult Box(string Message, string Title = null, MessageBoxButtons Buttons = MessageBoxButtons.OK, MessageBoxIcon Icon = MessageBoxIcon.Information)
         {
+            //If title is not set, try to obtain from active form
             if (Title == null)
             {
                 foreach (var F in Forms())
@@ -28,6 +33,7 @@ namespace BasicIDE
                         break;
                     }
                 }
+                //Default to name of icon if no form was active
                 if (Title == null)
                 {
                     Title = Icon.ToString();
@@ -41,6 +47,21 @@ namespace BasicIDE
         public static DialogResult E(string Msg, string Title = null)
         {
             return Box(Msg, Title, Icon: MessageBoxIcon.Error);
+        }
+
+        public static DialogResult EYN(string Msg, string Title = null)
+        {
+            return Box(Msg, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+        }
+
+        public static DialogResult ERC(string Msg, string Title = null)
+        {
+            return Box(Msg, Title, MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+        }
+
+        public static DialogResult EARI(string Msg, string Title = null)
+        {
+            return Box(Msg, Title, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error);
         }
 
         #endregion
