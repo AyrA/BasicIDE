@@ -7,19 +7,35 @@ using System.Xml.Serialization;
 
 namespace BasicIDE
 {
+    /// <summary>
+    /// Basic IDE settings
+    /// </summary>
     [Serializable]
     public class Settings : IValidateable, ICloneable
     {
+        /// <summary>
+        /// Gets or sets the font for editor control
+        /// </summary>
         public FontInfo EditorFont { get; set; }
 
+        /// <summary>
+        /// Gets or sets the serial port configuration
+        /// </summary>
         public SerialInfo SerialSettings { get; set; }
 
+        /// <summary>
+        /// Creates a default instance
+        /// </summary>
         public Settings()
         {
             EditorFont = new FontInfo("Courier New", 12f, FontStyle.Regular);
             SerialSettings = new SerialInfo();
         }
 
+        /// <summary>
+        /// Serializes settings
+        /// </summary>
+        /// <returns>Serialized settings</returns>
         public string Serialize()
         {
             var Ser = new XmlSerializer(typeof(Settings));
@@ -30,6 +46,11 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Loads settings from serialized data (see <see cref="Serialize"/>)
+        /// </summary>
+        /// <param name="Data">Serialized data</param>
+        /// <returns>Settings instance</returns>
         public static Settings Deserialize(string Data)
         {
             var Ser = new XmlSerializer(typeof(Settings));
@@ -39,6 +60,9 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Validates settings values
+        /// </summary>
         public void Validate()
         {
             if (EditorFont == null)
@@ -53,6 +77,10 @@ namespace BasicIDE
             SerialSettings.Validate();
         }
 
+        /// <summary>
+        /// Clones this instance
+        /// </summary>
+        /// <returns>Copy of settings</returns>
         public object Clone()
         {
             return new Settings()
@@ -62,6 +90,11 @@ namespace BasicIDE
             };
         }
 
+        /// <summary>
+        /// Checks if two settings objects are identical in values
+        /// </summary>
+        /// <param name="obj">Other Settings</param>
+        /// <returns>true, if identical values</returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -83,6 +116,10 @@ namespace BasicIDE
             return base.Equals(obj);
         }
 
+        /// <summary>
+        /// Gets the hash code of this instance
+        /// </summary>
+        /// <returns>Hash code</returns>
         public override int GetHashCode()
         {
             return
@@ -92,9 +129,15 @@ namespace BasicIDE
         }
     }
 
+    /// <summary>
+    /// Serial port information
+    /// </summary>
     [Serializable]
     public class SerialInfo : IValidateable, ICloneable
     {
+        /// <summary>
+        /// Value that represents automatic baud rate selection
+        /// </summary>
         public const int AutoRate = 0;
 
         /// <summary>
@@ -118,6 +161,9 @@ namespace BasicIDE
         /// </summary>
         public bool PrimitiveCable { get; set; }
 
+        /// <summary>
+        /// Creates a default instance with recommended settings
+        /// </summary>
         public SerialInfo()
         {
             BaudRate = AutoRate;
@@ -127,6 +173,16 @@ namespace BasicIDE
             PrimitiveCable = false;
         }
 
+        /// <summary>
+        /// Gets the real baud rate
+        /// </summary>
+        /// <param name="IsBasic">true, if data is BASIC program, false for document</param>
+        /// <param name="IsSendToTrs">true, if sent to TRS, false to receive</param>
+        /// <returns>Effective baud rate</returns>
+        /// <remarks>
+        /// If <see cref="BaudRate"/> is not set to <see cref="AutoRate"/>
+        /// it will return the set rate.
+        /// </remarks>
         public int GetAutoRate(bool IsBasic, bool IsSendToTrs)
         {
             if (BaudRate != AutoRate)
@@ -147,9 +203,16 @@ namespace BasicIDE
                     return 300;
                 }
             }
+            //Receiving works at max speed
             return Tools.BaudRates.Max();
         }
 
+        /// <summary>
+        /// Gets the serial port configuration string for the TRS 80
+        /// </summary>
+        /// <param name="IsBasic">true, if data is BASIC program, false for document</param>
+        /// <param name="IsSendToTrs">true, if sent to TRS, false to receive</param>
+        /// <returns>Serial port configuration string</returns>
         public string GetTrsSerialConfig(bool IsBasic, bool IsSendToTrs)
         {
             Validate();
@@ -164,6 +227,14 @@ namespace BasicIDE
                 XonXoff ? Serial.Handshake.XOnXOff : Serial.Handshake.RequestToSend);
         }
 
+        /// <summary>
+        /// Gets a serial port instance with correct settings
+        /// </summary>
+        /// <param name="PortName">Serial port name</param>
+        /// <param name="IsBasic">true, if data is BASIC program, false for document</param>
+        /// <param name="IsSendToTrs">true, if sent to TRS, false to receive</param>
+        /// <returns>Serial port</returns>
+        /// <remarks><see cref="System.IO.Ports.SerialPort.Open"/> has not yet been called</remarks>
         public Serial.SerialPort GetPort(string PortName, bool IsBasic, bool IsSendToTrs)
         {
             if (!Enum.TryParse(Parity, out Serial.Parity P))
@@ -205,6 +276,9 @@ namespace BasicIDE
             return SP;
         }
 
+        /// <summary>
+        /// Validates this instance
+        /// </summary>
         public void Validate()
         {
             if (BaudRate != 0 && !Tools.BaudRates.Contains(BaudRate))
@@ -221,11 +295,20 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Clones this instance
+        /// </summary>
+        /// <returns>Copy of instance</returns>
         public object Clone()
         {
             return MemberwiseClone();
         }
 
+        /// <summary>
+        /// Checks if this instance is equal to another serial settings instance
+        /// </summary>
+        /// <param name="obj">object</param>
+        /// <returns>true, if identical settings</returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -243,6 +326,10 @@ namespace BasicIDE
             return base.Equals(obj);
         }
 
+        /// <summary>
+        /// Gets the hash code of this instance
+        /// </summary>
+        /// <returns>Hash code</returns>
         public override int GetHashCode()
         {
             return BaudRate.GetHashCode() ^
@@ -254,13 +341,28 @@ namespace BasicIDE
         }
     }
 
+    /// <summary>
+    /// Represents font information that is serializable
+    /// </summary>
     [Serializable]
     public class FontInfo : IValidateable, ICloneable
     {
+        /// <summary>
+        /// Gets or sets the font file name
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the font size in points
+        /// </summary>
         public float Size { get; set; }
+        /// <summary>
+        /// Gets or sets the font style
+        /// </summary>
         public FontStyle Style { get; set; }
 
+        /// <summary>
+        /// Creates a default instance
+        /// </summary>
         public FontInfo()
         {
             Name = "Courier New";
@@ -268,6 +370,12 @@ namespace BasicIDE
             Style = FontStyle.Regular;
         }
 
+        /// <summary>
+        /// Creates an instance from the given arguments
+        /// </summary>
+        /// <param name="Name">Font name</param>
+        /// <param name="Size">Font size</param>
+        /// <param name="Style">Font style</param>
         public FontInfo(string Name, float Size, FontStyle Style)
         {
             if (string.IsNullOrWhiteSpace(Name))
@@ -284,16 +392,27 @@ namespace BasicIDE
             this.Style = Style;
         }
 
+        /// <summary>
+        /// Creates an instance from an existing font
+        /// </summary>
+        /// <param name="font">Font</param>
         public FontInfo(Font font) : this(font.Name, font.Size, font.Style)
         {
 
         }
 
+        /// <summary>
+        /// Gets a font using values from this instance
+        /// </summary>
+        /// <returns></returns>
         public Font GetFont()
         {
             return new Font(Name, Size, Style);
         }
 
+        /// <summary>
+        /// Validates this instance
+        /// </summary>
         public void Validate()
         {
             if (Size <= 0.0)
@@ -324,11 +443,20 @@ namespace BasicIDE
             }
         }
 
+        /// <summary>
+        /// Clones this instance
+        /// </summary>
+        /// <returns>Copy</returns>
         public object Clone()
         {
             return new FontInfo(Name, Size, Style);
         }
 
+        /// <summary>
+        /// Checks if this instance is equal to another
+        /// </summary>
+        /// <param name="obj">object</param>
+        /// <returns>true, if equal</returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -342,6 +470,10 @@ namespace BasicIDE
             return base.Equals(obj);
         }
 
+        /// <summary>
+        /// Gets the hash code of this instance
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return
