@@ -32,7 +32,7 @@ namespace BasicIDE
                 MessageBox.Show(ex.Message, "Project load failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
-            buildTypeToolStripMenuItem.SelectedIndex = 0;
+            TsmiBuildType.SelectedIndex = 0;
         }
 
         public bool SaveAll()
@@ -147,19 +147,19 @@ namespace BasicIDE
 
         private void SetWindowMenu()
         {
-            var Items = windowToolStripMenuItem.DropDownItems
+            var Items = TsmiWindow.DropDownItems
                 .OfType<ToolStripItem>()
                 .Where(m => m.Tag is Form)
                 .ToArray();
             foreach (var Item in Items)
             {
-                windowToolStripMenuItem.DropDownItems.Remove(Item);
+                TsmiWindow.DropDownItems.Remove(Item);
             }
             foreach (var Window in MdiChildren)
             {
-                var NewItem = windowToolStripMenuItem.DropDownItems.Add(Window.Text);
+                var NewItem = TsmiWindow.DropDownItems.Add(Window.Text);
                 NewItem.Tag = Window;
-                NewItem.Click += WindowMenuItem_Click;
+                NewItem.Click += TsmiDynWindow_Click;
             }
         }
 
@@ -171,7 +171,7 @@ namespace BasicIDE
                 return null;
             }
             PopulateTree(ProjectFile);
-            var IsDebug = buildTypeToolStripMenuItem.SelectedItem.ToString() == "Debug";
+            var IsDebug = TsmiBuildType.SelectedItem.ToString() == "Debug";
             var C = new Basic.Compiler(IsDebug ? Basic.CompilerConfig.Debug : Basic.CompilerConfig.Release);
             return C.Compile(ProjectFile.GetAllCode(), ProjectFile.GetFunctions().ToArray());
         }
@@ -336,7 +336,7 @@ namespace BasicIDE
             //NOOP
         }
 
-        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiNew_Click(object sender, EventArgs e)
         {
             var Backup = DlgSave.Title;
             DlgSave.Title = "Create a new project";
@@ -372,12 +372,12 @@ namespace BasicIDE
             DlgSave.Title = Backup;
         }
 
-        private void AddFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiAddFile_Click(object sender, EventArgs e)
         {
             AddFunction();
         }
 
-        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiOpen_Click(object sender, EventArgs e)
         {
             if (DlgOpen.ShowDialog() == DialogResult.OK)
             {
@@ -431,7 +431,7 @@ namespace BasicIDE
             }
         }
 
-        private void BuildToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiBuild_Click(object sender, EventArgs e)
         {
             if (ProjectFile == null)
             {
@@ -486,7 +486,7 @@ namespace BasicIDE
             buildWindow = ShowCode("Compilation result", Result.GetLines(), true);
         }
 
-        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiSave_Click(object sender, EventArgs e)
         {
             if (ProjectFile == null)
             {
@@ -496,12 +496,12 @@ namespace BasicIDE
             SaveAll();
         }
 
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiExit_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiSaveAs_Click(object sender, EventArgs e)
         {
             if (ProjectFile == null)
             {
@@ -531,30 +531,30 @@ namespace BasicIDE
         private void MenuMain_MenuActivate(object sender, EventArgs e)
         {
             var Ports = System.IO.Ports.SerialPort.GetPortNames().OrderBy(m => m);
-            uploadToolStripMenuItem.DropDownItems.Clear();
-            backupRestoreToolStripMenuItem.DropDownItems.Clear();
-            terminalToolStripMenuItem.DropDownItems.Clear();
+            TsmiUpload.DropDownItems.Clear();
+            TsmiBackup.DropDownItems.Clear();
+            TsmiTerminal.DropDownItems.Clear();
             foreach (var SP in Ports)
             {
-                var UploadItem = uploadToolStripMenuItem.DropDownItems.Add(SP);
-                UploadItem.Click += UploadMenuItem_Click;
+                var UploadItem = TsmiUpload.DropDownItems.Add(SP);
+                UploadItem.Click += TsmiDynUpload_Click;
 
-                var BackupItem = backupRestoreToolStripMenuItem.DropDownItems.Add(SP);
-                BackupItem.Click += BackupMenuItem_Click;
+                var BackupItem = TsmiBackup.DropDownItems.Add(SP);
+                BackupItem.Click += TsmiDynBackup_Click;
 
-                var TerminalItem = terminalToolStripMenuItem.DropDownItems.Add(SP);
-                TerminalItem.Click += TerminalMenuItem_Click;
+                var TerminalItem = TsmiTerminal.DropDownItems.Add(SP);
+                TerminalItem.Click += TsmiDynTerminal_Click;
             }
             SetWindowMenu();
         }
 
-        private void ClearMessagesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiClearMessages_Click(object sender, EventArgs e)
         {
             LvErrors.Items.Clear();
             LvErrors.Visible = false;
         }
 
-        private void UploadMenuItem_Click(object sender, EventArgs e)
+        private void TsmiDynUpload_Click(object sender, EventArgs e)
         {
             if (ProjectFile == null)
             {
@@ -580,7 +580,7 @@ namespace BasicIDE
             }
         }
 
-        private void BackupMenuItem_Click(object sender, EventArgs e)
+        private void TsmiDynBackup_Click(object sender, EventArgs e)
         {
             var Item = (ToolStripItem)sender;
             var PortName = Item.Text;
@@ -599,7 +599,7 @@ namespace BasicIDE
             }
         }
 
-        private void TerminalMenuItem_Click(object sender, EventArgs e)
+        private void TsmiDynTerminal_Click(object sender, EventArgs e)
         {
             var Item = (ToolStripItem)sender;
             var PortName = Item.Text;
@@ -618,7 +618,7 @@ namespace BasicIDE
             }
         }
 
-        private void CustomizeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiCustomize_Click(object sender, EventArgs e)
         {
             DlgFont.Font = Program.Config.EditorFont.GetFont();
             if (DlgFont.ShowDialog() == DialogResult.OK)
@@ -628,7 +628,7 @@ namespace BasicIDE
             }
         }
 
-        private void OptionsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiOptions_Click(object sender, EventArgs e)
         {
             var F = MdiChildren.OfType<FrmOptions>().FirstOrDefault();
             if (F == null)
@@ -642,12 +642,12 @@ namespace BasicIDE
             F.BringToFront();
         }
 
-        private void AddFunctionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CmsAddFunction_Click(object sender, EventArgs e)
         {
             AddFunction();
         }
 
-        private void RenameFunctionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CmsRenameFunction_Click(object sender, EventArgs e)
         {
             var N = TreeDocuments.SelectedNode;
             if (N == null || N.Parent == null)
@@ -661,7 +661,7 @@ namespace BasicIDE
             }
         }
 
-        private void DeleteFunctionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CmsDeleteFunction_Click(object sender, EventArgs e)
         {
             if (ProjectFile == null)
             {
@@ -705,17 +705,17 @@ namespace BasicIDE
             }
         }
 
-        private void TileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiTileHorizontal_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileHorizontal);
         }
 
-        private void TileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiTileVertical_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileVertical);
         }
 
-        private void MaximizeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiMaximize_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
             if (ActiveMdiChild != null)
@@ -724,12 +724,12 @@ namespace BasicIDE
             }
         }
 
-        private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiCascade_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
         }
 
-        private void WindowMenuItem_Click(object sender, EventArgs e)
+        private void TsmiDynWindow_Click(object sender, EventArgs e)
         {
             var Item = (ToolStripMenuItem)sender;
             if (Item.Tag is Form Window)
@@ -739,7 +739,7 @@ namespace BasicIDE
             }
         }
 
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiAbout_Click(object sender, EventArgs e)
         {
             using (var Dlg = new FrmAbout())
             {
@@ -747,14 +747,14 @@ namespace BasicIDE
             }
         }
 
-        private void ProjectWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiProjectWebsite_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/AyrA/BasicIDE").Dispose();
         }
 
 #pragma warning disable IDE0019 //Pattern matching
 
-        private void CutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiCut_Click(object sender, EventArgs e)
         {
             var Current = ActiveMdiChild?.ActiveControl as TextBox;
             if (Current == null)
@@ -767,7 +767,7 @@ namespace BasicIDE
             }
         }
 
-        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiCopy_Click(object sender, EventArgs e)
         {
             var Current = ActiveMdiChild?.ActiveControl as TextBox;
             if (Current == null)
@@ -777,7 +777,7 @@ namespace BasicIDE
             Current.Copy();
         }
 
-        private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiPaste_Click(object sender, EventArgs e)
         {
             var Current = ActiveMdiChild?.ActiveControl as TextBox;
             if (Current == null)
@@ -790,7 +790,7 @@ namespace BasicIDE
             }
         }
 
-        private void SelectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiSelectAll_Click(object sender, EventArgs e)
         {
             var Current = ActiveMdiChild?.ActiveControl as TextBox;
             if (Current == null)
@@ -800,7 +800,7 @@ namespace BasicIDE
             Current.SelectAll();
         }
 
-        private void UndoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiUndo_Click(object sender, EventArgs e)
         {
             var Current = ActiveMdiChild?.ActiveControl as TextBox;
             if (Current == null)
@@ -813,12 +813,12 @@ namespace BasicIDE
             }
         }
 
-        private void ShowHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiShowHelp_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://help.ayra.ch/basic-ide");
         }
 
-        private void ShowBasicReferenceToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TsmiShowBasicReference_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://help.ayra.ch/trs80-reference");
         }

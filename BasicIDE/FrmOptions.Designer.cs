@@ -32,13 +32,13 @@ namespace BasicIDE
             this.GbSerial = new System.Windows.Forms.GroupBox();
             this.CbPrimitiveMode = new System.Windows.Forms.CheckBox();
             this.BtnSerialDefaults = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.LblBaudHint = new System.Windows.Forms.Label();
             this.CbXON = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.LblStopbits = new System.Windows.Forms.Label();
             this.DdStopBits = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.LblParity = new System.Windows.Forms.Label();
             this.DdParity = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LblBaudrate = new System.Windows.Forms.Label();
             this.DdBaudrate = new System.Windows.Forms.ComboBox();
             this.BtnOK = new System.Windows.Forms.Button();
             this.BtnCancel = new System.Windows.Forms.Button();
@@ -51,13 +51,13 @@ namespace BasicIDE
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GbSerial.Controls.Add(this.CbPrimitiveMode);
             this.GbSerial.Controls.Add(this.BtnSerialDefaults);
-            this.GbSerial.Controls.Add(this.label4);
+            this.GbSerial.Controls.Add(this.LblBaudHint);
             this.GbSerial.Controls.Add(this.CbXON);
-            this.GbSerial.Controls.Add(this.label3);
+            this.GbSerial.Controls.Add(this.LblStopbits);
             this.GbSerial.Controls.Add(this.DdStopBits);
-            this.GbSerial.Controls.Add(this.label2);
+            this.GbSerial.Controls.Add(this.LblParity);
             this.GbSerial.Controls.Add(this.DdParity);
-            this.GbSerial.Controls.Add(this.label1);
+            this.GbSerial.Controls.Add(this.LblBaudrate);
             this.GbSerial.Controls.Add(this.DdBaudrate);
             this.GbSerial.Location = new System.Drawing.Point(12, 12);
             this.GbSerial.Name = "GbSerial";
@@ -87,16 +87,16 @@ namespace BasicIDE
             this.BtnSerialDefaults.UseVisualStyleBackColor = true;
             this.BtnSerialDefaults.Click += new System.EventHandler(this.BtnSerialDefaults_Click);
             // 
-            // label4
+            // LblBaudHint
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.LblBaudHint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoEllipsis = true;
-            this.label4.Location = new System.Drawing.Point(208, 27);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(230, 33);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Setting rate above 300 may cause data loss.";
+            this.LblBaudHint.AutoEllipsis = true;
+            this.LblBaudHint.Location = new System.Drawing.Point(208, 27);
+            this.LblBaudHint.Name = "LblBaudHint";
+            this.LblBaudHint.Size = new System.Drawing.Size(230, 33);
+            this.LblBaudHint.TabIndex = 2;
+            this.LblBaudHint.Text = "Setting rate above 300 may cause data loss.";
             // 
             // CbXON
             // 
@@ -108,14 +108,14 @@ namespace BasicIDE
             this.CbXON.Text = "&XON/XOFF";
             this.CbXON.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // LblStopbits
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 91);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Stop Bits";
+            this.LblStopbits.AutoSize = true;
+            this.LblStopbits.Location = new System.Drawing.Point(14, 91);
+            this.LblStopbits.Name = "LblStopbits";
+            this.LblStopbits.Size = new System.Drawing.Size(49, 13);
+            this.LblStopbits.TabIndex = 5;
+            this.LblStopbits.Text = "Stop Bits";
             // 
             // DdStopBits
             // 
@@ -126,14 +126,14 @@ namespace BasicIDE
             this.DdStopBits.Size = new System.Drawing.Size(121, 21);
             this.DdStopBits.TabIndex = 6;
             // 
-            // label2
+            // LblParity
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 59);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Parity";
+            this.LblParity.AutoSize = true;
+            this.LblParity.Location = new System.Drawing.Point(14, 59);
+            this.LblParity.Name = "LblParity";
+            this.LblParity.Size = new System.Drawing.Size(33, 13);
+            this.LblParity.TabIndex = 3;
+            this.LblParity.Text = "Parity";
             // 
             // DdParity
             // 
@@ -144,14 +144,14 @@ namespace BasicIDE
             this.DdParity.Size = new System.Drawing.Size(121, 21);
             this.DdParity.TabIndex = 3;
             // 
-            // label1
+            // LblBaudrate
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Baud Rate";
+            this.LblBaudrate.AutoSize = true;
+            this.LblBaudrate.Location = new System.Drawing.Point(14, 27);
+            this.LblBaudrate.Name = "LblBaudrate";
+            this.LblBaudrate.Size = new System.Drawing.Size(58, 13);
+            this.LblBaudrate.TabIndex = 0;
+            this.LblBaudrate.Text = "Baud Rate";
             // 
             // DdBaudrate
             // 
@@ -208,14 +208,14 @@ namespace BasicIDE
         #endregion
 
         private System.Windows.Forms.GroupBox GbSerial;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label LblStopbits;
         private System.Windows.Forms.ComboBox DdStopBits;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label LblParity;
         private System.Windows.Forms.ComboBox DdParity;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LblBaudrate;
         private System.Windows.Forms.ComboBox DdBaudrate;
         private System.Windows.Forms.CheckBox CbXON;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label LblBaudHint;
         private System.Windows.Forms.Button BtnSerialDefaults;
         private System.Windows.Forms.Button BtnOK;
         private System.Windows.Forms.Button BtnCancel;

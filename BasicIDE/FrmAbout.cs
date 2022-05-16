@@ -9,11 +9,11 @@ namespace BasicIDE
         {
             InitializeComponent();
             Text = string.Format("About {0}", AssemblyTitle);
-            labelProductName.Text = AssemblyProduct;
-            labelVersion.Text = string.Format("Version {0}", AssemblyVersion);
-            labelCopyright.Text = AssemblyCopyright;
-            labelCompanyName.Text = AssemblyCompany;
-            textBoxDescription.Text = AssemblyDescription;
+            LblProductName.Text = AssemblyProduct;
+            LblVersion.Text = string.Format("Version {0}", AssemblyVersion);
+            LblCopyright.Text = AssemblyCopyright;
+            LblCompanyName.Text = AssemblyCompany;
+            TbDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors

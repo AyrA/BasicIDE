@@ -36,56 +36,56 @@ namespace BasicIDE
             this.DlgSave = new System.Windows.Forms.SaveFileDialog();
             this.TreeDocuments = new System.Windows.Forms.TreeView();
             this.CMS = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addFunctionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renameFunctionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteFunctionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CmsAddFunction = new System.Windows.Forms.ToolStripMenuItem();
+            this.CmsRenameFunction = new System.Windows.Forms.ToolStripMenuItem();
+            this.CmsDeleteFunction = new System.Windows.Forms.ToolStripMenuItem();
             this.ListSplit = new System.Windows.Forms.Splitter();
             this.MenuMain = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.cutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buildTypeToolStripMenuItem = new System.Windows.Forms.ToolStripComboBox();
-            this.buildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearMessagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tRS80ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.backupRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.maximizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.TsmiSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.TsmiExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiUndo = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiSep3 = new System.Windows.Forms.ToolStripSeparator();
+            this.TsmiCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiSep4 = new System.Windows.Forms.ToolStripSeparator();
+            this.TsmiSelectAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiAddFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiBuildType = new System.Windows.Forms.ToolStripComboBox();
+            this.TsmiBuild = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiClearMessages = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiCustomize = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiTrs80 = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiBackup = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiTerminal = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiWindow = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiTileHorizontal = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiTileVertical = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiMaximize = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiCascade = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiSep5 = new System.Windows.Forms.ToolStripSeparator();
+            this.TsmiHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiShowHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.TsmiProjectWebsite = new System.Windows.Forms.ToolStripMenuItem();
             this.LvErrors = new System.Windows.Forms.ListView();
             this.ChType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChFunction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChLineIndex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ChMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.splitter1 = new System.Windows.Forms.Splitter();
-            this.showBasicReferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SplitHandler = new System.Windows.Forms.Splitter();
+            this.TsmiShowBasicReference = new System.Windows.Forms.ToolStripMenuItem();
             this.CMS.SuspendLayout();
             this.MenuMain.SuspendLayout();
             this.SuspendLayout();
@@ -123,32 +123,32 @@ namespace BasicIDE
             // CMS
             // 
             this.CMS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addFunctionToolStripMenuItem,
-            this.renameFunctionToolStripMenuItem,
-            this.deleteFunctionToolStripMenuItem});
+            this.CmsAddFunction,
+            this.CmsRenameFunction,
+            this.CmsDeleteFunction});
             this.CMS.Name = "CMS";
             this.CMS.Size = new System.Drawing.Size(150, 70);
             // 
-            // addFunctionToolStripMenuItem
+            // CmsAddFunction
             // 
-            this.addFunctionToolStripMenuItem.Name = "addFunctionToolStripMenuItem";
-            this.addFunctionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.addFunctionToolStripMenuItem.Text = "&Add Function";
-            this.addFunctionToolStripMenuItem.Click += new System.EventHandler(this.AddFunctionToolStripMenuItem_Click);
+            this.CmsAddFunction.Name = "CmsAddFunction";
+            this.CmsAddFunction.Size = new System.Drawing.Size(149, 22);
+            this.CmsAddFunction.Text = "&Add Function";
+            this.CmsAddFunction.Click += new System.EventHandler(this.CmsAddFunction_Click);
             // 
-            // renameFunctionToolStripMenuItem
+            // CmsRenameFunction
             // 
-            this.renameFunctionToolStripMenuItem.Name = "renameFunctionToolStripMenuItem";
-            this.renameFunctionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.renameFunctionToolStripMenuItem.Text = "&Rename";
-            this.renameFunctionToolStripMenuItem.Click += new System.EventHandler(this.RenameFunctionToolStripMenuItem_Click);
+            this.CmsRenameFunction.Name = "CmsRenameFunction";
+            this.CmsRenameFunction.Size = new System.Drawing.Size(149, 22);
+            this.CmsRenameFunction.Text = "&Rename";
+            this.CmsRenameFunction.Click += new System.EventHandler(this.CmsRenameFunction_Click);
             // 
-            // deleteFunctionToolStripMenuItem
+            // CmsDeleteFunction
             // 
-            this.deleteFunctionToolStripMenuItem.Name = "deleteFunctionToolStripMenuItem";
-            this.deleteFunctionToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.deleteFunctionToolStripMenuItem.Text = "&Delete Function";
-            this.deleteFunctionToolStripMenuItem.Click += new System.EventHandler(this.DeleteFunctionToolStripMenuItem_Click);
+            this.CmsDeleteFunction.Name = "CmsDeleteFunction";
+            this.CmsDeleteFunction.Size = new System.Drawing.Size(149, 22);
+            this.CmsDeleteFunction.Text = "&Delete Function";
+            this.CmsDeleteFunction.Click += new System.EventHandler(this.CmsDeleteFunction_Click);
             // 
             // ListSplit
             // 
@@ -162,13 +162,13 @@ namespace BasicIDE
             // MenuMain
             // 
             this.MenuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.projectToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.tRS80ToolStripMenuItem,
-            this.windowToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.TsmiFile,
+            this.TsmiEdit,
+            this.TsmiProject,
+            this.TsmiTools,
+            this.TsmiTrs80,
+            this.TsmiWindow,
+            this.TsmiHelp});
             this.MenuMain.Location = new System.Drawing.Point(0, 0);
             this.MenuMain.Name = "MenuMain";
             this.MenuMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -177,313 +177,313 @@ namespace BasicIDE
             this.MenuMain.Text = "menuStrip1";
             this.MenuMain.MenuActivate += new System.EventHandler(this.MenuMain_MenuActivate);
             // 
-            // fileToolStripMenuItem
+            // TsmiFile
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.openToolStripMenuItem,
-            this.toolStripSeparator,
-            this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
-            this.fileToolStripMenuItem.Text = "&File";
+            this.TsmiFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiNew,
+            this.TsmiOpen,
+            this.TsmiSep1,
+            this.TsmiSave,
+            this.TsmiSaveAs,
+            this.TsmiSep2,
+            this.TsmiExit});
+            this.TsmiFile.Name = "TsmiFile";
+            this.TsmiFile.Size = new System.Drawing.Size(35, 20);
+            this.TsmiFile.Text = "&File";
             // 
-            // newToolStripMenuItem
+            // TsmiNew
             // 
-            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
-            this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.newToolStripMenuItem.Text = "&New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
+            this.TsmiNew.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
+            this.TsmiNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsmiNew.Name = "TsmiNew";
+            this.TsmiNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.TsmiNew.Size = new System.Drawing.Size(136, 22);
+            this.TsmiNew.Text = "&New";
+            this.TsmiNew.Click += new System.EventHandler(this.TsmiNew_Click);
             // 
-            // openToolStripMenuItem
+            // TsmiOpen
             // 
-            this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
-            this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.openToolStripMenuItem.Text = "&Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            this.TsmiOpen.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
+            this.TsmiOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsmiOpen.Name = "TsmiOpen";
+            this.TsmiOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.TsmiOpen.Size = new System.Drawing.Size(136, 22);
+            this.TsmiOpen.Text = "&Open";
+            this.TsmiOpen.Click += new System.EventHandler(this.TsmiOpen_Click);
             // 
-            // toolStripSeparator
+            // TsmiSep1
             // 
-            this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(133, 6);
+            this.TsmiSep1.Name = "TsmiSep1";
+            this.TsmiSep1.Size = new System.Drawing.Size(133, 6);
             // 
-            // saveToolStripMenuItem
+            // TsmiSave
             // 
-            this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
-            this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.saveToolStripMenuItem.Text = "&Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
+            this.TsmiSave.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
+            this.TsmiSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsmiSave.Name = "TsmiSave";
+            this.TsmiSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.TsmiSave.Size = new System.Drawing.Size(136, 22);
+            this.TsmiSave.Text = "&Save";
+            this.TsmiSave.Click += new System.EventHandler(this.TsmiSave_Click);
             // 
-            // saveAsToolStripMenuItem
+            // TsmiSaveAs
             // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.saveAsToolStripMenuItem.Text = "Save &As";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
+            this.TsmiSaveAs.Name = "TsmiSaveAs";
+            this.TsmiSaveAs.Size = new System.Drawing.Size(136, 22);
+            this.TsmiSaveAs.Text = "Save &As";
+            this.TsmiSaveAs.Click += new System.EventHandler(this.TsmiSaveAs_Click);
             // 
-            // toolStripSeparator2
+            // TsmiSep2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(133, 6);
+            this.TsmiSep2.Name = "TsmiSep2";
+            this.TsmiSep2.Size = new System.Drawing.Size(133, 6);
             // 
-            // exitToolStripMenuItem
+            // TsmiExit
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            this.TsmiExit.Name = "TsmiExit";
+            this.TsmiExit.Size = new System.Drawing.Size(136, 22);
+            this.TsmiExit.Text = "E&xit";
+            this.TsmiExit.Click += new System.EventHandler(this.TsmiExit_Click);
             // 
-            // editToolStripMenuItem
+            // TsmiEdit
             // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.undoToolStripMenuItem,
-            this.toolStripSeparator3,
-            this.cutToolStripMenuItem,
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem,
-            this.toolStripSeparator4,
-            this.selectAllToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.editToolStripMenuItem.Text = "&Edit";
+            this.TsmiEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiUndo,
+            this.TsmiSep3,
+            this.TsmiCut,
+            this.TsmiCopy,
+            this.TsmiPaste,
+            this.TsmiSep4,
+            this.TsmiSelectAll});
+            this.TsmiEdit.Name = "TsmiEdit";
+            this.TsmiEdit.Size = new System.Drawing.Size(37, 20);
+            this.TsmiEdit.Text = "&Edit";
             // 
-            // undoToolStripMenuItem
+            // TsmiUndo
             // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.undoToolStripMenuItem.Text = "&Undo";
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.UndoToolStripMenuItem_Click);
+            this.TsmiUndo.Name = "TsmiUndo";
+            this.TsmiUndo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.TsmiUndo.Size = new System.Drawing.Size(153, 22);
+            this.TsmiUndo.Text = "&Undo";
+            this.TsmiUndo.Click += new System.EventHandler(this.TsmiUndo_Click);
             // 
-            // toolStripSeparator3
+            // TsmiSep3
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(150, 6);
+            this.TsmiSep3.Name = "TsmiSep3";
+            this.TsmiSep3.Size = new System.Drawing.Size(150, 6);
             // 
-            // cutToolStripMenuItem
+            // TsmiCut
             // 
-            this.cutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripMenuItem.Image")));
-            this.cutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
-            this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.cutToolStripMenuItem.Text = "Cu&t";
-            this.cutToolStripMenuItem.Click += new System.EventHandler(this.CutToolStripMenuItem_Click);
+            this.TsmiCut.Image = ((System.Drawing.Image)(resources.GetObject("cutToolStripMenuItem.Image")));
+            this.TsmiCut.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsmiCut.Name = "TsmiCut";
+            this.TsmiCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.TsmiCut.Size = new System.Drawing.Size(153, 22);
+            this.TsmiCut.Text = "Cu&t";
+            this.TsmiCut.Click += new System.EventHandler(this.TsmiCut_Click);
             // 
-            // copyToolStripMenuItem
+            // TsmiCopy
             // 
-            this.copyToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripMenuItem.Image")));
-            this.copyToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.copyToolStripMenuItem.Text = "&Copy";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
+            this.TsmiCopy.Image = ((System.Drawing.Image)(resources.GetObject("copyToolStripMenuItem.Image")));
+            this.TsmiCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsmiCopy.Name = "TsmiCopy";
+            this.TsmiCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.TsmiCopy.Size = new System.Drawing.Size(153, 22);
+            this.TsmiCopy.Text = "&Copy";
+            this.TsmiCopy.Click += new System.EventHandler(this.TsmiCopy_Click);
             // 
-            // pasteToolStripMenuItem
+            // TsmiPaste
             // 
-            this.pasteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripMenuItem.Image")));
-            this.pasteToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.pasteToolStripMenuItem.Text = "&Paste";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
+            this.TsmiPaste.Image = ((System.Drawing.Image)(resources.GetObject("pasteToolStripMenuItem.Image")));
+            this.TsmiPaste.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TsmiPaste.Name = "TsmiPaste";
+            this.TsmiPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.TsmiPaste.Size = new System.Drawing.Size(153, 22);
+            this.TsmiPaste.Text = "&Paste";
+            this.TsmiPaste.Click += new System.EventHandler(this.TsmiPaste_Click);
             // 
-            // toolStripSeparator4
+            // TsmiSep4
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(150, 6);
+            this.TsmiSep4.Name = "TsmiSep4";
+            this.TsmiSep4.Size = new System.Drawing.Size(150, 6);
             // 
-            // selectAllToolStripMenuItem
+            // TsmiSelectAll
             // 
-            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.selectAllToolStripMenuItem.Text = "Select &All";
-            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.SelectAllToolStripMenuItem_Click);
+            this.TsmiSelectAll.Name = "TsmiSelectAll";
+            this.TsmiSelectAll.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.TsmiSelectAll.Size = new System.Drawing.Size(153, 22);
+            this.TsmiSelectAll.Text = "Select &All";
+            this.TsmiSelectAll.Click += new System.EventHandler(this.TsmiSelectAll_Click);
             // 
-            // projectToolStripMenuItem
+            // TsmiProject
             // 
-            this.projectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addFileToolStripMenuItem,
-            this.buildTypeToolStripMenuItem,
-            this.buildToolStripMenuItem,
-            this.uploadToolStripMenuItem,
-            this.clearMessagesToolStripMenuItem});
-            this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
-            this.projectToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.projectToolStripMenuItem.Text = "&Project";
+            this.TsmiProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiAddFile,
+            this.TsmiBuildType,
+            this.TsmiBuild,
+            this.TsmiUpload,
+            this.TsmiClearMessages});
+            this.TsmiProject.Name = "TsmiProject";
+            this.TsmiProject.Size = new System.Drawing.Size(52, 20);
+            this.TsmiProject.Text = "&Project";
             // 
-            // addFileToolStripMenuItem
+            // TsmiAddFile
             // 
-            this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
-            this.addFileToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.addFileToolStripMenuItem.Text = "&Add function";
-            this.addFileToolStripMenuItem.Click += new System.EventHandler(this.AddFileToolStripMenuItem_Click);
+            this.TsmiAddFile.Name = "TsmiAddFile";
+            this.TsmiAddFile.Size = new System.Drawing.Size(181, 22);
+            this.TsmiAddFile.Text = "&Add function";
+            this.TsmiAddFile.Click += new System.EventHandler(this.TsmiAddFile_Click);
             // 
-            // buildTypeToolStripMenuItem
+            // TsmiBuildType
             // 
-            this.buildTypeToolStripMenuItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.buildTypeToolStripMenuItem.Items.AddRange(new object[] {
+            this.TsmiBuildType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TsmiBuildType.Items.AddRange(new object[] {
             "Debug",
             "Release"});
-            this.buildTypeToolStripMenuItem.Name = "buildTypeToolStripMenuItem";
-            this.buildTypeToolStripMenuItem.Size = new System.Drawing.Size(121, 21);
+            this.TsmiBuildType.Name = "TsmiBuildType";
+            this.TsmiBuildType.Size = new System.Drawing.Size(121, 21);
             // 
-            // buildToolStripMenuItem
+            // TsmiBuild
             // 
-            this.buildToolStripMenuItem.Name = "buildToolStripMenuItem";
-            this.buildToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.buildToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.buildToolStripMenuItem.Text = "&Build";
-            this.buildToolStripMenuItem.Click += new System.EventHandler(this.BuildToolStripMenuItem_Click);
+            this.TsmiBuild.Name = "TsmiBuild";
+            this.TsmiBuild.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.TsmiBuild.Size = new System.Drawing.Size(181, 22);
+            this.TsmiBuild.Text = "&Build";
+            this.TsmiBuild.Click += new System.EventHandler(this.TsmiBuild_Click);
             // 
-            // uploadToolStripMenuItem
+            // TsmiUpload
             // 
-            this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
-            this.uploadToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.uploadToolStripMenuItem.Text = "Build and &Upload";
+            this.TsmiUpload.Name = "TsmiUpload";
+            this.TsmiUpload.Size = new System.Drawing.Size(181, 22);
+            this.TsmiUpload.Text = "Build and &Upload";
             // 
-            // clearMessagesToolStripMenuItem
+            // TsmiClearMessages
             // 
-            this.clearMessagesToolStripMenuItem.Name = "clearMessagesToolStripMenuItem";
-            this.clearMessagesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.clearMessagesToolStripMenuItem.Text = "&Clear Messages";
-            this.clearMessagesToolStripMenuItem.Click += new System.EventHandler(this.ClearMessagesToolStripMenuItem_Click);
+            this.TsmiClearMessages.Name = "TsmiClearMessages";
+            this.TsmiClearMessages.Size = new System.Drawing.Size(181, 22);
+            this.TsmiClearMessages.Text = "&Clear Messages";
+            this.TsmiClearMessages.Click += new System.EventHandler(this.TsmiClearMessages_Click);
             // 
-            // toolsToolStripMenuItem
+            // TsmiTools
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.customizeToolStripMenuItem,
-            this.optionsToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.toolsToolStripMenuItem.Text = "&Tools";
+            this.TsmiTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiCustomize,
+            this.TsmiOptions});
+            this.TsmiTools.Name = "TsmiTools";
+            this.TsmiTools.Size = new System.Drawing.Size(45, 20);
+            this.TsmiTools.Text = "&Tools";
             // 
-            // customizeToolStripMenuItem
+            // TsmiCustomize
             // 
-            this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.customizeToolStripMenuItem.Text = "&Customize";
-            this.customizeToolStripMenuItem.Click += new System.EventHandler(this.CustomizeToolStripMenuItem_Click);
+            this.TsmiCustomize.Name = "TsmiCustomize";
+            this.TsmiCustomize.Size = new System.Drawing.Size(122, 22);
+            this.TsmiCustomize.Text = "&Customize";
+            this.TsmiCustomize.Click += new System.EventHandler(this.TsmiCustomize_Click);
             // 
-            // optionsToolStripMenuItem
+            // TsmiOptions
             // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.optionsToolStripMenuItem.Text = "&Options";
-            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.OptionsToolStripMenuItem_Click);
+            this.TsmiOptions.Name = "TsmiOptions";
+            this.TsmiOptions.Size = new System.Drawing.Size(122, 22);
+            this.TsmiOptions.Text = "&Options";
+            this.TsmiOptions.Click += new System.EventHandler(this.TsmiOptions_Click);
             // 
-            // tRS80ToolStripMenuItem
+            // TsmiTrs80
             // 
-            this.tRS80ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.backupRestoreToolStripMenuItem,
-            this.terminalToolStripMenuItem});
-            this.tRS80ToolStripMenuItem.Name = "tRS80ToolStripMenuItem";
-            this.tRS80ToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
-            this.tRS80ToolStripMenuItem.Text = "T&RS-80";
+            this.TsmiTrs80.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiBackup,
+            this.TsmiTerminal});
+            this.TsmiTrs80.Name = "TsmiTrs80";
+            this.TsmiTrs80.Size = new System.Drawing.Size(56, 20);
+            this.TsmiTrs80.Text = "T&RS-80";
             // 
-            // backupRestoreToolStripMenuItem
+            // TsmiBackup
             // 
-            this.backupRestoreToolStripMenuItem.Name = "backupRestoreToolStripMenuItem";
-            this.backupRestoreToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.backupRestoreToolStripMenuItem.Text = "&Backup/Restore";
+            this.TsmiBackup.Name = "TsmiBackup";
+            this.TsmiBackup.Size = new System.Drawing.Size(153, 22);
+            this.TsmiBackup.Text = "&Backup/Restore";
             // 
-            // terminalToolStripMenuItem
+            // TsmiTerminal
             // 
-            this.terminalToolStripMenuItem.Name = "terminalToolStripMenuItem";
-            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.terminalToolStripMenuItem.Text = "&Terminal";
+            this.TsmiTerminal.Name = "TsmiTerminal";
+            this.TsmiTerminal.Size = new System.Drawing.Size(153, 22);
+            this.TsmiTerminal.Text = "&Terminal";
             // 
-            // windowToolStripMenuItem
+            // TsmiWindow
             // 
-            this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tileHorizontalToolStripMenuItem,
-            this.tileVerticalToolStripMenuItem,
-            this.maximizeToolStripMenuItem,
-            this.cascadeToolStripMenuItem,
-            this.toolStripSeparator1});
-            this.windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            this.windowToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-            this.windowToolStripMenuItem.Text = "&Window";
+            this.TsmiWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiTileHorizontal,
+            this.TsmiTileVertical,
+            this.TsmiMaximize,
+            this.TsmiCascade,
+            this.TsmiSep5});
+            this.TsmiWindow.Name = "TsmiWindow";
+            this.TsmiWindow.Size = new System.Drawing.Size(58, 20);
+            this.TsmiWindow.Text = "&Window";
             // 
-            // tileHorizontalToolStripMenuItem
+            // TsmiTileHorizontal
             // 
-            this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.tileHorizontalToolStripMenuItem.Text = "Tile &Horizontal";
-            this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.TileHorizontalToolStripMenuItem_Click);
+            this.TsmiTileHorizontal.Name = "TsmiTileHorizontal";
+            this.TsmiTileHorizontal.Size = new System.Drawing.Size(141, 22);
+            this.TsmiTileHorizontal.Text = "Tile &Horizontal";
+            this.TsmiTileHorizontal.Click += new System.EventHandler(this.TsmiTileHorizontal_Click);
             // 
-            // tileVerticalToolStripMenuItem
+            // TsmiTileVertical
             // 
-            this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.tileVerticalToolStripMenuItem.Text = "Tile &Vertical";
-            this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.TileVerticalToolStripMenuItem_Click);
+            this.TsmiTileVertical.Name = "TsmiTileVertical";
+            this.TsmiTileVertical.Size = new System.Drawing.Size(141, 22);
+            this.TsmiTileVertical.Text = "Tile &Vertical";
+            this.TsmiTileVertical.Click += new System.EventHandler(this.TsmiTileVertical_Click);
             // 
-            // maximizeToolStripMenuItem
+            // TsmiMaximize
             // 
-            this.maximizeToolStripMenuItem.Name = "maximizeToolStripMenuItem";
-            this.maximizeToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.maximizeToolStripMenuItem.Text = "&Maximize";
-            this.maximizeToolStripMenuItem.Click += new System.EventHandler(this.MaximizeToolStripMenuItem_Click);
+            this.TsmiMaximize.Name = "TsmiMaximize";
+            this.TsmiMaximize.Size = new System.Drawing.Size(141, 22);
+            this.TsmiMaximize.Text = "&Maximize";
+            this.TsmiMaximize.Click += new System.EventHandler(this.TsmiMaximize_Click);
             // 
-            // cascadeToolStripMenuItem
+            // TsmiCascade
             // 
-            this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.cascadeToolStripMenuItem.Text = "&Cascade";
-            this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.CascadeToolStripMenuItem_Click);
+            this.TsmiCascade.Name = "TsmiCascade";
+            this.TsmiCascade.Size = new System.Drawing.Size(141, 22);
+            this.TsmiCascade.Text = "&Cascade";
+            this.TsmiCascade.Click += new System.EventHandler(this.TsmiCascade_Click);
             // 
-            // toolStripSeparator1
+            // TsmiSep5
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.TsmiSep5.Name = "TsmiSep5";
+            this.TsmiSep5.Size = new System.Drawing.Size(138, 6);
             // 
-            // helpToolStripMenuItem
+            // TsmiHelp
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showHelpToolStripMenuItem,
-            this.showBasicReferenceToolStripMenuItem,
-            this.aboutToolStripMenuItem,
-            this.projectWebsiteToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.helpToolStripMenuItem.Text = "&Help";
+            this.TsmiHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TsmiShowHelp,
+            this.TsmiShowBasicReference,
+            this.TsmiAbout,
+            this.TsmiProjectWebsite});
+            this.TsmiHelp.Name = "TsmiHelp";
+            this.TsmiHelp.Size = new System.Drawing.Size(41, 20);
+            this.TsmiHelp.Text = "&Help";
             // 
-            // showHelpToolStripMenuItem
+            // TsmiShowHelp
             // 
-            this.showHelpToolStripMenuItem.Name = "showHelpToolStripMenuItem";
-            this.showHelpToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.showHelpToolStripMenuItem.Text = "&Show IDE Help";
-            this.showHelpToolStripMenuItem.Click += new System.EventHandler(this.ShowHelpToolStripMenuItem_Click);
+            this.TsmiShowHelp.Name = "TsmiShowHelp";
+            this.TsmiShowHelp.Size = new System.Drawing.Size(183, 22);
+            this.TsmiShowHelp.Text = "&Show IDE Help";
+            this.TsmiShowHelp.Click += new System.EventHandler(this.TsmiShowHelp_Click);
             // 
-            // aboutToolStripMenuItem
+            // TsmiAbout
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.aboutToolStripMenuItem.Text = "&About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+            this.TsmiAbout.Name = "TsmiAbout";
+            this.TsmiAbout.Size = new System.Drawing.Size(183, 22);
+            this.TsmiAbout.Text = "&About";
+            this.TsmiAbout.Click += new System.EventHandler(this.TsmiAbout_Click);
             // 
-            // projectWebsiteToolStripMenuItem
+            // TsmiProjectWebsite
             // 
-            this.projectWebsiteToolStripMenuItem.Name = "projectWebsiteToolStripMenuItem";
-            this.projectWebsiteToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.projectWebsiteToolStripMenuItem.Text = "&Project Website";
-            this.projectWebsiteToolStripMenuItem.Click += new System.EventHandler(this.ProjectWebsiteToolStripMenuItem_Click);
+            this.TsmiProjectWebsite.Name = "TsmiProjectWebsite";
+            this.TsmiProjectWebsite.Size = new System.Drawing.Size(183, 22);
+            this.TsmiProjectWebsite.Text = "&Project Website";
+            this.TsmiProjectWebsite.Click += new System.EventHandler(this.TsmiProjectWebsite_Click);
             // 
             // LvErrors
             // 
@@ -521,28 +521,28 @@ namespace BasicIDE
             // 
             this.ChMessage.Text = "Message";
             // 
-            // splitter1
+            // SplitHandler
             // 
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.splitter1.Location = new System.Drawing.Point(0, 452);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(629, 12);
-            this.splitter1.TabIndex = 7;
-            this.splitter1.TabStop = false;
+            this.SplitHandler.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.SplitHandler.Location = new System.Drawing.Point(0, 452);
+            this.SplitHandler.Name = "SplitHandler";
+            this.SplitHandler.Size = new System.Drawing.Size(629, 12);
+            this.SplitHandler.TabIndex = 7;
+            this.SplitHandler.TabStop = false;
             // 
-            // showBasicReferenceToolStripMenuItem
+            // TsmiShowBasicReference
             // 
-            this.showBasicReferenceToolStripMenuItem.Name = "showBasicReferenceToolStripMenuItem";
-            this.showBasicReferenceToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.showBasicReferenceToolStripMenuItem.Text = "Show &Basic Reference";
-            this.showBasicReferenceToolStripMenuItem.Click += new System.EventHandler(this.ShowBasicReferenceToolStripMenuItem_Click);
+            this.TsmiShowBasicReference.Name = "TsmiShowBasicReference";
+            this.TsmiShowBasicReference.Size = new System.Drawing.Size(183, 22);
+            this.TsmiShowBasicReference.Text = "Show &Basic Reference";
+            this.TsmiShowBasicReference.Click += new System.EventHandler(this.TsmiShowBasicReference_Click);
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.SplitHandler);
             this.Controls.Add(this.LvErrors);
             this.Controls.Add(this.ListSplit);
             this.Controls.Add(this.TreeDocuments);
@@ -567,55 +567,55 @@ namespace BasicIDE
         private System.Windows.Forms.TreeView TreeDocuments;
         private System.Windows.Forms.Splitter ListSplit;
         private System.Windows.Forms.MenuStrip MenuMain;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem customizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem buildToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uploadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TsmiFile;
+        private System.Windows.Forms.ToolStripMenuItem TsmiNew;
+        private System.Windows.Forms.ToolStripMenuItem TsmiOpen;
+        private System.Windows.Forms.ToolStripSeparator TsmiSep1;
+        private System.Windows.Forms.ToolStripMenuItem TsmiSave;
+        private System.Windows.Forms.ToolStripMenuItem TsmiSaveAs;
+        private System.Windows.Forms.ToolStripSeparator TsmiSep2;
+        private System.Windows.Forms.ToolStripMenuItem TsmiExit;
+        private System.Windows.Forms.ToolStripMenuItem TsmiEdit;
+        private System.Windows.Forms.ToolStripMenuItem TsmiUndo;
+        private System.Windows.Forms.ToolStripSeparator TsmiSep3;
+        private System.Windows.Forms.ToolStripMenuItem TsmiCut;
+        private System.Windows.Forms.ToolStripMenuItem TsmiCopy;
+        private System.Windows.Forms.ToolStripMenuItem TsmiPaste;
+        private System.Windows.Forms.ToolStripSeparator TsmiSep4;
+        private System.Windows.Forms.ToolStripMenuItem TsmiSelectAll;
+        private System.Windows.Forms.ToolStripMenuItem TsmiTools;
+        private System.Windows.Forms.ToolStripMenuItem TsmiCustomize;
+        private System.Windows.Forms.ToolStripMenuItem TsmiOptions;
+        private System.Windows.Forms.ToolStripMenuItem TsmiProject;
+        private System.Windows.Forms.ToolStripMenuItem TsmiAddFile;
+        private System.Windows.Forms.ToolStripMenuItem TsmiBuild;
+        private System.Windows.Forms.ToolStripMenuItem TsmiUpload;
         private System.Windows.Forms.ContextMenuStrip CMS;
-        private System.Windows.Forms.ToolStripMenuItem addFunctionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem renameFunctionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteFunctionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CmsAddFunction;
+        private System.Windows.Forms.ToolStripMenuItem CmsRenameFunction;
+        private System.Windows.Forms.ToolStripMenuItem CmsDeleteFunction;
         private System.Windows.Forms.ListView LvErrors;
         private System.Windows.Forms.ColumnHeader ChType;
         private System.Windows.Forms.ColumnHeader ChLineIndex;
         private System.Windows.Forms.ColumnHeader ChMessage;
-        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.Splitter SplitHandler;
         private System.Windows.Forms.ColumnHeader ChFunction;
-        private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tileHorizontalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tileVerticalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem maximizeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cascadeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripComboBox buildTypeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearMessagesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tRS80ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem backupRestoreToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem terminalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showHelpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem projectWebsiteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showBasicReferenceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TsmiWindow;
+        private System.Windows.Forms.ToolStripMenuItem TsmiTileHorizontal;
+        private System.Windows.Forms.ToolStripMenuItem TsmiTileVertical;
+        private System.Windows.Forms.ToolStripMenuItem TsmiMaximize;
+        private System.Windows.Forms.ToolStripMenuItem TsmiCascade;
+        private System.Windows.Forms.ToolStripSeparator TsmiSep5;
+        private System.Windows.Forms.ToolStripComboBox TsmiBuildType;
+        private System.Windows.Forms.ToolStripMenuItem TsmiClearMessages;
+        private System.Windows.Forms.ToolStripMenuItem TsmiTrs80;
+        private System.Windows.Forms.ToolStripMenuItem TsmiBackup;
+        private System.Windows.Forms.ToolStripMenuItem TsmiTerminal;
+        private System.Windows.Forms.ToolStripMenuItem TsmiHelp;
+        private System.Windows.Forms.ToolStripMenuItem TsmiShowHelp;
+        private System.Windows.Forms.ToolStripMenuItem TsmiAbout;
+        private System.Windows.Forms.ToolStripMenuItem TsmiProjectWebsite;
+        private System.Windows.Forms.ToolStripMenuItem TsmiShowBasicReference;
     }
 }
 

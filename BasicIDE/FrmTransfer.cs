@@ -168,7 +168,7 @@ namespace BasicIDE
                             try
                             {
                                 Timer.Restart();
-                                while(!Cancel && Port.BytesToRead == 0)
+                                while (!Cancel && Port.BytesToRead == 0)
                                 {
 
                                 }
@@ -292,6 +292,8 @@ namespace BasicIDE
             };
             SerialThread.Start(new object[] { Port, Filename });
         }
+        
+        #region Events
 
         private void BtnUploadDoc_Click(object sender, EventArgs e)
         {
@@ -351,5 +353,7 @@ namespace BasicIDE
                 Close();
             }
         }
+
+        #endregion    
     }
 }
