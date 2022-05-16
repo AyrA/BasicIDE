@@ -648,7 +648,8 @@ namespace BasicIDE
             }
             else
             {
-                RenameFunction(N.Text);
+                var FuncName = N.Text.Substring(0, N.Text.IndexOf('('));
+                RenameFunction(FuncName);
             }
         }
 
