@@ -305,7 +305,7 @@ namespace BasicIDE
 
         private FrmEditor GetEditorWindow(string FunctionName)
         {
-            return MdiChildren.OfType<FrmEditor>().FirstOrDefault(m => m.FunctionName == FunctionName);
+            return MdiChildren.OfType<FrmEditor>().FirstOrDefault(m => m.FunctionName.ToLower() == FunctionName.ToLower());
         }
 
         private void LoadProject(Project P)
@@ -403,7 +403,7 @@ namespace BasicIDE
                 }
                 else
                 {
-                    System.Diagnostics.Process.Start(Application.ExecutablePath, DlgSave.FileName);
+                    System.Diagnostics.Process.Start(Application.ExecutablePath, DlgOpen.FileName);
                 }
             }
         }
