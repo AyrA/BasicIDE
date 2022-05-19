@@ -24,7 +24,7 @@ namespace BasicIDE
         public event EventHandler CodeEdit = delegate { };
 
         private bool hasChange;
-        private readonly string functionName;
+        private string functionName;
         private readonly bool suppressEvents;
 
         public bool HasChange { get => hasChange; }
@@ -47,6 +47,12 @@ namespace BasicIDE
             functionName = Title;
             hasChange = false;
             suppressEvents = false;
+        }
+
+        public void SetFunctionName(string Name)
+        {
+            functionName = Name;
+            Text = $"Editor: {Name}";
         }
 
         public void ApplyConfig()
