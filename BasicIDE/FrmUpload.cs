@@ -51,13 +51,12 @@ namespace BasicIDE
             };
             if (Program.Config.SerialSettings.PrimitiveCable)
             {
-                MessageBox.Show(
+                MBox.I(
                     "Primitive mode is enabled and thus it's not possible to detect when the TRS-80 is ready.\r\n" +
                     "Run the BASIC command\r\n" +
                     $"LOAD \"COM:{PortStr}\"\r\n" +
                     "before confirming this message.",
-                    "Primitive mode",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    "Primitive mode");
             }
             T.Start();
         }
@@ -129,7 +128,7 @@ namespace BasicIDE
                             SP.WriteLine(code[offset++]);
                             SetStatus(offset);
                         }
-                        SP.WriteLine("\x1A");
+                        SP.Write("\x1A");
                     }
                     SP.Close();
                     SetStatus(StatusEnd);
@@ -137,7 +136,7 @@ namespace BasicIDE
             }
             catch (ThreadAbortException)
             {
-                //NOOP
+                SetStatus(StatusAbort);
             }
             catch (UnauthorizedAccessException)
             {
@@ -188,7 +187,7 @@ namespace BasicIDE
                     {
                         BtnClose.Text = "&Close";
                         BtnClose.Enabled = true;
-                        SetStatus(StatusAbort, "Transfer aborted");
+                        SetStatus(StatusAbort);
                         MBox.W(
                             "Transfer aborted by user. If your TRS-80 is now stuck at loading, " +
                             "press SHIFT+PAUSE (next to cursor left key) on it to abort the serial data load.\r\n" +

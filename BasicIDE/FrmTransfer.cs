@@ -108,7 +108,7 @@ namespace BasicIDE
                             SetStatus($"Sent: {FS.Position}/{FS.Length} ({FS.Position * 100 / FS.Length}%)");
                             Port.BaseStream.Write(buffer, 0, count);
                         } while (!Cancel && count > 0);
-                        Port.BaseStream.Write(new byte[] { 0x1A, 0x0A }, 0, 2);
+                        Port.BaseStream.WriteByte(0x1A);
                         Port.BaseStream.Flush();
                     }
                     SetStatus("Waiting for buffers to flush...");
@@ -168,9 +168,14 @@ namespace BasicIDE
                             try
                             {
                                 Timer.Restart();
+                                //Wait for either a byte or a cancel action
                                 while (!Cancel && Port.BytesToRead == 0)
                                 {
-
+                                    Thread.Sleep(100);
+                                }
+                                if (Cancel)
+                                {
+                                    return;
                                 }
                                 Count = Port.BaseStream.Read(Data, 0, Data.Length);
                             }
