@@ -92,7 +92,15 @@ namespace BasicIDE
             TreeDocuments.Nodes.Clear();
             if (P != null)
             {
-                var Root = new TreeNode(P.Title, P.GetFunctions().Select(m => new TreeNode(m.ToString())).ToArray());
+                var Functions = P.GetFunctions().ToList();
+                //Ensure the main function is at the top
+                var Main = Functions.FirstOrDefault(m => m.FunctionName.ToLower() == P.MainFunction.ToLower());
+                if (Main != null)
+                {
+                    Functions.Remove(Main);
+                    Functions.Insert(0, Main);
+                }
+                var Root = new TreeNode(P.Title, Functions.Select(m => new TreeNode(m.ToString())).ToArray());
                 Root.Expand();
                 TreeDocuments.Nodes.Add(Root);
             }
@@ -294,7 +302,7 @@ namespace BasicIDE
                     var Editor = GetEditorWindow(FunctionName);
                     if (Editor != null)
                     {
-                        Editor.Text = NewName;
+                        Editor.SetFunctionName(NewName);
                     }
                     PopulateTree(ProjectFile);
                     return true;
@@ -756,7 +764,7 @@ namespace BasicIDE
 
         private void TsmiCut_Click(object sender, EventArgs e)
         {
-            var Current = ActiveMdiChild?.ActiveControl as TextBox;
+            var Current = ActiveMdiChild?.ActiveControl as FastColoredTextBoxNS.FastColoredTextBox;
             if (Current == null)
             {
                 return;
@@ -769,7 +777,7 @@ namespace BasicIDE
 
         private void TsmiCopy_Click(object sender, EventArgs e)
         {
-            var Current = ActiveMdiChild?.ActiveControl as TextBox;
+            var Current = ActiveMdiChild?.ActiveControl as FastColoredTextBoxNS.FastColoredTextBox;
             if (Current == null)
             {
                 return;
@@ -779,7 +787,7 @@ namespace BasicIDE
 
         private void TsmiPaste_Click(object sender, EventArgs e)
         {
-            var Current = ActiveMdiChild?.ActiveControl as TextBox;
+            var Current = ActiveMdiChild?.ActiveControl as FastColoredTextBoxNS.FastColoredTextBox;
             if (Current == null)
             {
                 return;
@@ -792,7 +800,7 @@ namespace BasicIDE
 
         private void TsmiSelectAll_Click(object sender, EventArgs e)
         {
-            var Current = ActiveMdiChild?.ActiveControl as TextBox;
+            var Current = ActiveMdiChild?.ActiveControl as FastColoredTextBoxNS.FastColoredTextBox;
             if (Current == null)
             {
                 return;
@@ -802,15 +810,12 @@ namespace BasicIDE
 
         private void TsmiUndo_Click(object sender, EventArgs e)
         {
-            var Current = ActiveMdiChild?.ActiveControl as TextBox;
+            var Current = ActiveMdiChild?.ActiveControl as FastColoredTextBoxNS.FastColoredTextBox;
             if (Current == null)
             {
                 return;
             }
-            if (Current.CanUndo)
-            {
-                Current.Undo();
-            }
+            Current.Undo();
         }
 
         private void TsmiShowHelp_Click(object sender, EventArgs e)
